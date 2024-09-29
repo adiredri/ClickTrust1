@@ -1,0 +1,252 @@
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+h2 {
+    font-family: Arial, sans-serif; 
+    color: white; 
+    padding: 10px 20px; 
+}
+
+.logo {
+    position: fixed;
+    max-height: 60px; 
+    max-width: 90%; 
+    top: 20px; 
+    left: 20px;
+    z-index: 999; 
+}
+#widget {
+    background-color: rgb(59, 64, 156);
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%;
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    cursor: pointer; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    color: white; 
+    font-weight: bold; 
+}
+
+#widget img {
+    max-width: 80%; 
+    max-height: 80%; 
+    border-radius: 50%;
+    display: block;
+    margin: auto; 
+}
+
+.video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 150%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+ .wrapper {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 100vh;
+ }
+ .container{
+    
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
+     backdrop-filter: blur(60px); 
+     -webkit-backdrop-filter: blur(60px);
+     border-radius: 20px;
+     border:1px solid rgba(255, 255, 255, 0.05);
+     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+     text-align: center;
+     width: 400px;
+     margin: 8% auto;
+     height: 600px;
+ }
+ 
+ .container form{
+     padding: 2px;
+     height: 300px;
+     margin-bottom: 90px;
+     width: 90%;
+     line-height: 0.5;
+     
+ }
+
+ .container input{
+    
+     color: rgba(255, 255, 255, 0.9);
+     font-size: 18px;
+     height: 25px;
+     width: 85%;
+     padding-top: 4px;
+     margin-top: 5px;
+     background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+     backdrop-filter: blur(80px); 
+     -webkit-backdrop-filter: blur(80px);
+     border-radius: 20px;
+     border:1px solid rgba(255, 255, 255, 0.05);
+     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+     animation-duration: 2s;
+     transition: all 0.3s ease;
+     text-align: center;
+     
+ }
+ input[type="date"] {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    height: 25px;
+    width: 85%;
+    padding-top: 4px;
+    margin-top: 5px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(80px); 
+    -webkit-backdrop-filter: blur(80px);
+    border-radius: 20px;
+    border:1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    animation-duration: 2s;
+    transition: all 0.3s ease;
+    text-align: center;
+    
+  }
+
+.gender-options input[type="radio"] {
+    display: none;
+}
+
+.gender-options label {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #ffffff;
+}
+
+.gender-options input[type="radio"]:checked + label {
+    background-color: #45a049;
+    color: white;
+}
+
+ .container input:hover{
+        scale: 1.05;
+     }
+ 
+ .container input:focus{
+        box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+        scale: 1.05;
+     }
+ input::placeholder{
+     color: rgba(255, 255, 255, 0.9);
+     text-align: center;
+     font-size: 20px;
+ }
+     input::-webkit-inner-spin-button,
+     input::-webkit-outer-spin-button {
+       -webkit-appearance: none;
+       margin: 0;
+       display: none;
+     }
+ #signup-button{
+     width: 50%;
+     color: white;
+     background-color: rgb(42, 47, 119);
+     animation-duration: 2s;
+     transition: font-size 0.3s ease, box-shadow 0.2s ease, width 0.2s ease,height 0.2s ease;/* Add a transition for smooth animation */
+     border:1px solid rgba(255, 255, 255, 0.1);
+     font-size: 18px;
+     height: 30px;
+     cursor: pointer;
+ }
+ #signup-button:focus{
+     background-color: rgb(84, 190, 84);
+ }
+ 
+ .container p{
+    
+     margin-top: 10px;
+     color: white;
+     width: 100%;
+     font-size: 18px;
+ }
+ .container a {
+     color: white;
+     text-decoration: underline;
+     
+     align-items: center;
+     text-align: center;
+     justify-content: center;
+ }
+ 
+ #signup-button:hover{
+     width: 55%;
+     font-size: 23px;
+     height: 40px;
+     box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+ }
+
+ #message {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    height: 170px;
+    width: 85%;
+    margin-top: 5px;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(80px);
+    -webkit-backdrop-filter: blur(80px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    animation-duration: 2s;
+    transition: all 0.3s ease;
+    text-align: left;
+    resize: none;
+    display: block;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+}
+#message::placeholder {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}

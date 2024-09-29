@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles/Sign.css">
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="images/global2.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="logo">
+        <img src="images/WhiteLogo.png" alt="My Logo" class="logo">
+    </div>
+    <div id="widget">
+        <a href="index.html">
+        <img src="images/homepage.png" alt="Image" id="widget-image"></a>
+    </div>
+    <div class="wrapper">
+    <div class="container">
+        <h2>Log in to ClickTrust</h2>
+        <form action="http://localhost:3300/login" method="post">
+            <input type="email" name="Email" placeholder="Email" required><br><br>
+            <input type="password" name="Password" placeholder="Password" required><br><br>
+            <input type="submit" value="Log In" id="signup-button">
+        </form>
+        <p><a href="ForgotPassword.html">Forgot your password?</a></p>
+        <p>Don't have an account yet? <a href="signup.html" style="display: flex;">Sign up here</a></p>
+    </div>
+</div>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+</body>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const inputFields = document.querySelectorAll('input[type="text"], input[type="password"], input[type="number"]');
+        
+        inputFields.forEach(field => {
+            field.addEventListener('focus', () => {
+                field.placeholder = '';
+            });
+            
+            field.addEventListener('blur', () => {
+                if (!field.value) {
+                    field.placeholder = field.name;
+                }
+            });
+        });
+    });
+</script>
+</html>
