@@ -1,0 +1,152 @@
+
+*{
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+ }
+ #myVideo{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   opacity: 0;
+   z-index: 0;
+ }
+ 
+ @media(min-aspect-ratio:16/9){ /*background-video-responsivnes*/
+   #myVideo{
+     width: 100%;
+     height: auto;
+   }
+ }
+ @media(max-aspect-ratio:16/9){ /*background-video-responsivnes*/
+   #myVideo{
+     width: auto;
+     height: 100%;
+   }
+ }
+ body {
+   margin: 0;
+   font-family: 'Poppins', sans-serif;
+   background-color: black;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   overflow-x: hidden;
+ }
+
+ .profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px; 
+    margin-left: 15px;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: auto;
+}
+
+.profile-name a {
+    margin-left: 10px;
+}
+
+/*  ---------------------- nav bar ----------------- */
+
+ nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-bottom: solid 2px white;
+  padding-bottom: 5px;
+  z-index: 1; /* Ensure the navigation bar stays above other content */
+
+ }
+
+ .nav-bar {
+   margin-top: 5px;
+   width: 100%;
+   display: flex;
+   font-size: 22px;
+   font-weight: bold;
+   flex-grow: 1;
+   flex-wrap: nowrap;
+   overflow-x: auto;
+ }
+ 
+ .nav-bar a {
+   color: rgba(255, 255, 255, 0.959);
+   text-decoration: none;
+   margin: 0 0;
+   flex-grow: 1;
+   text-align: center;
+   white-space: nowrap;
+   overflow: hidden;
+   min-width: 0;
+ }
+ 
+
+ .nav-logo img {
+  width: 270px;
+  max-width: 20%;
+  margin: 0;
+  margin-left: 1%;
+}
+
+   .table-container{
+     margin-top: 500px;
+     margin-bottom:150px;
+     max-width: 90%;
+   }
+ 
+ .text-box {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   color: white;
+   text-align: center;
+   width: 95%;
+   max-width: 90%;
+   margin-top: 170px;
+   margin-bottom:160px;
+   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+   backdrop-filter: blur(40px);  /*blur effect*/
+   -webkit-backdrop-filter: blur(40px); /*blur effect*/
+   border-radius: 20px;
+   border:1px solid rgba(255, 255, 255, 0.05);
+   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+ .title {
+   font-size: 50px;
+   font-weight:700;
+ }
+ 
+ .under-text {
+   font-size: 40px;
+   font-weight:700;
+ }
+ 
+ .footer-logo img {
+   width: 10%;
+   
+ }
+ }
+ .text-box img{
+   box-sizing: border-box;
+   margin: 0;
+ }
+ .text-box p{
+   padding: 0;
+   margin: 15px;
+ }
+ 
