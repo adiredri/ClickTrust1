@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles/Sign.css">
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="images/CustomerService.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="logo">
+        <img src="images/WhiteLogo.png" alt="My Logo" class="logo">
+    </div>
+    <div id="widget">
+        <a id="home-link" href="#"> 
+            <img src="images/homepage.png" alt="Image" id="widget-image"></a>
+    </div>
+    <div class="wrapper">
+    <div class="container" style="width: 40%">
+        <h2>Contcat Us!</h2>
+        <form id="contactForm" method="POST">
+            <input type="text" name="Name" placeholder="Name" style="width: 55%" required><br><br>
+            <input type="text" name="Email" placeholder="Email" style="width: 55%" required><br><br>
+            <input type="number" name="Phone" placeholder="Phone" style="width: 55%" required><br><br><br>
+            <textarea id="message" name="Massege" placeholder="Massege" style="width: 95%" required></textarea>
+            <input type="submit" value="Submit" id="signup-button" style="margin-top: 15px;" onclick="addContact(event)">
+        </form>
+        <p>Address: Havanim Street 1, Ashdod <br><br>
+           Email: info@ClickTrust.com <br><br>        
+           Phone: +972 50-4567890</p>
+    </div>
+</div>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+
+<!-- scripts here for adding contact -->
+
+</body>
+</html>
