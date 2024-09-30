@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    padding: 0;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  .logo {
+    position: relative;
+    max-height: 70px;
+    max-width: 92%; 
+    top: 10px; 
+    left: -290px; 
+    z-index: 1000; 
+}
+  #widget {
+    background-color: rgb(59, 64, 156);
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    cursor: pointer; 
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    color: white; 
+    font-weight: bold; 
+}
+
+#widget img {
+    max-width: 80%; 
+    max-height: 80%; 
+    border-radius: 50%; 
+    display: block;
+    margin: auto; 
+}
+
+.video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+ul {
+    margin-top: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.text-box {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    text-align: left;
+    margin-top: 60px;
+    margin-bottom:70px;
+    max-width: 1350px;
+    padding-left: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+    backdrop-filter: blur(40px);  /*blur effect*/
+    -webkit-backdrop-filter: blur(40px); /*blur effect*/
+    border-radius: 20px;
+    border:1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  .title {
+    font-size: 50px;
+    font-weight:700;
+  }
+  
+  .under-text {
+    font-size: 40px;
+    font-weight:700;
+  }
+}
+ .btn-back {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom:40px;
+
+}
+
+.btn-back:hover {
+    background-color: #0056b3;
+}
+
+.btn-back:before {
+    content: '\2190'; 
+    margin-right: 8px;
+}
