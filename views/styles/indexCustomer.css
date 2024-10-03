@@ -13,7 +13,7 @@
    z-index: 0;
  }
  
- @media(min-aspect-ratio:16/9){ /*background-video-responsivnes*/
+ @media(min-aspect-ratio:16/9) { /*background-video-responsivnes*/
    #myVideo{
      width: 100%;
      height: auto;
@@ -25,6 +25,7 @@
      height: 100%;
    }
  }
+
  body {
    margin: 0;
    font-family: 'Poppins', sans-serif;
@@ -59,7 +60,6 @@
 }
 
 /*  ---------------------- nav bar ----------------- */
-
  nav {
   position: fixed;
   top: 0;
@@ -71,7 +71,6 @@
   border-bottom: solid 2px white;
   padding-bottom: 5px;
   z-index: 1; /* Ensure the navigation bar stays above other content */
-
  }
 
  .nav-bar {
@@ -96,14 +95,12 @@
    min-width: 0;
  }
  
-
  .nav-logo img {
   width: 270px;
   max-width: 20%;
   margin: 0;
   margin-left: 1%;
 }
-
    .table-container{
      margin-top: 500px;
      margin-bottom:150px;
@@ -137,9 +134,8 @@
  }
  
  .footer-logo img {
-   width: 10%;
-   
- }
+   width: 10%; 
+  }
  }
  .text-box img{
    box-sizing: border-box;
@@ -149,4 +145,265 @@
    padding: 0;
    margin: 15px;
  }
+
+ /*---------------------------Search-------------------------------*/
+ .container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
+  backdrop-filter: blur(60px); 
+  -webkit-backdrop-filter: blur(60px);
+  border-radius: 20px;
+  border:1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 70%;
+  height: 520px;
+  margin-top: 140px;
+}
+
+.container form{
+  padding: 2px;
+  height: 300px;
+  margin-bottom: 30px;
+  width: 70%;
+  line-height: 0.5;  
+  text-align: center;
+}
+
+.container input{
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  height: 25px;
+  width: 70%;
+  padding-top: 4px;
+  margin-top: 5px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(80px); 
+  -webkit-backdrop-filter: blur(80px);
+  border-radius: 20px;
+  border:1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+  animation-duration: 2s;
+  transition: all 0.3s ease;
+  text-align: center; 
+}
+
+input::placeholder{
+ color: rgb(218, 211, 211);
+ text-align: center;
+ font-size: 20px;
+}
+
+.container p{
+ margin-top: 10px;
+ color: white;
+ width: 100%;
+ font-size: 18px;
+}
+
+.container a {
+ color: white;
+ text-decoration: none;
+ align-items: center;
+ text-align: center;
+ justify-content: center;
+}
+
+.search-container {
+ font-size: 20px;
+ margin-bottom: 20px;
+ display: flex;
+ justify-content: space-between;
+ text-align: center;
+ margin-top: -20px;
+}
+
+.search-container input {
+ color: rgba(255, 255, 255, 0.9);
+ font-size: 22px;
+ font-weight: 100;
+ height: 30px;
+ width: 80%;
+ padding-top: 4px;
+ margin-bottom: 2px;
+ margin-top: 5px;
+ background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+ backdrop-filter: blur(120px);
+ -webkit-backdrop-filter: blur(120px);
+ border-radius: 20px;
+ border: 1px solid rgba(255, 255, 255, 0.05);
+ box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+ animation-duration: 2s;
+ transition: all 0.3s ease;
+ text-align: center;
+}
+
+input:hover {
+ transform: scale(1.1);
+}
+
+input:focus {
+ transform: scale(1.1);
+}
+
+.search-container input::-webkit-inner-spin-button,
+.search-container input::-webkit-outer-spin-button { /*disable the arrows on the input bar that have numbers*/
+ -webkit-appearance: none;
+ margin: 0;
+ display: none;
+}
+
+input::placeholder { /* text inside input box edit*/
+ text-align: center;
+ color: white;
+ font-size: 22px;
+}
+
+.price-slider {
+  width: 50%;
+  margin: 5px auto;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 10px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #24244e;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+output {
+  font-size: 20px;
+}
+
+#clearFiltersButton {
+  background-color: #f44336; 
+  color: white; 
+  padding: 8px; 
+  text-align: center; 
+  display: inline-block; 
+  border: none; 
+  border-radius: 20px; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
+  font-size: 14px; 
+}
+
+#clearFiltersButton:hover {
+  background-color: #d32f2f; 
+}
+
+/*------------------------------- footer ----------------------------*/
+
+footer {
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  color: white;
+  bottom: 0;
+  
+}
+ .social{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+ 
+ .social-media {
+   max-width: 550px;
+   background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25));
+   border-radius: 20px;
+   border:1px solid rgba(255, 255, 255, 0);
+   padding: 10px;
+   font-weight: 600;
+   font-size: 25px;
+ }
+
+ .social-buttons-frame {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+ }
+ 
+ .social-buttons-frame a {
+   width: 10%;
+   margin-left: 20px;
+ }
+ 
+ input::placeholder , textarea::placeholder{
+   color: white;
+ }
+
+ /* Main branch section */
+ .main-branch-text {
+   text-align: center;
+ }
+ 
+ /* Maps iframes*/
+ .iframe {
+  text-align: center;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+ }
+ 
+ .iframe iframe {
+   max-width: 100%;
+   height: auto;
+   border-radius: 10px;
+ }
+ .social-media img{
+   width: 100%;
+ }
+
+  /*------------------------------- table ----------------------------*/
+
+  table {
+    border-collapse: collapse;
+    width: 95%; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    table-layout: fixed;
+    max-width: 95%;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.1); 
+    vertical-align: middle; 
+    width: 80%;
+    padding: 10px 5px; 
+  }
+  
+ 
  

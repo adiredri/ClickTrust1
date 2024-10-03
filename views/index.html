@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Click Trust</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="styles/indexCustomer.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles/indexCustomer.css">
 </head>
 <body>
-
     <video autoplay loop muted plays-inline id="myVideo">
-<source src="images/Digital.mp4" type="video/mp4">
+      <source src="images/Digital.mp4" type="video/mp4">
     </video>
+
     <div class="top-section">
     <nav>
         <div class="nav-bar">
@@ -121,5 +121,28 @@
               </div>
           </div>
         </footer>
+
+        <script>
+          /*   background video  */
+          window.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('myVideo');
+            video.addEventListener('loadeddata', function() {
+              fadeInOnce(video); // Call the modified fade-in function
+            }, false);
+          });
+          
+          function fadeInOnce(element) {
+            var op = 0.01; // Initial opacity
+            var timer = setInterval(function() {
+              if (op >= 1) {
+                clearInterval(timer);
+                element.removeEventListener('loadeddata', fadeInOnce); // Remove the event listener after fading in
+              }
+              element.style.opacity = op;
+              op += op * 0.1; 
+            }, 10); 
+          }
+          
+          </script>
 </body>
 </html>
