@@ -5,6 +5,8 @@ const User = require('../models/user');
 const Asset = require('../models/asset');
 const Trade = require('../models/trades');
 const Contact = require('../models/contact');
+require("dotenv").config({ path: __dirname + "../../.env" });
+const { twitterClient } = require("../../twitterClient");
 
 //  --------------------------------- SIGNUP -------------------------------------------
 
