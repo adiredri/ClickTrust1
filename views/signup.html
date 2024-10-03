@@ -42,7 +42,37 @@
      <p style="font-size: 12px;">By continuing with an account you agree to our <a href="TermsOfUse.html">Terms of Use</a> and acknowledge that you have read our <a href="PrivacyPolicy.html">Privacy Policy</a></p>
     </div>
 </div>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
 </body>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const inputFields = document.querySelectorAll('input[type="text"], input[type="password"], input[type="number"]');
+        
+        inputFields.forEach(field => {
+            field.addEventListener('focus', () => {
+                field.placeholder = '';
+            });
+            
+            field.addEventListener('blur', () => {
+                if (!field.value) {
+                    field.placeholder = field.name;
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    Available = true;
+    function displayRadioValue() {
+        var ele = document.getElementsByName('Gender');
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].checked)
+                document.getElementById("result").innerHTML=ele[i].value;
+        }
+    }
+</script>
+
 
 </html>
