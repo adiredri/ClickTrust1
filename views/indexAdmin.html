@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Trust</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="styles/indexCustomer.css">
+</head>
+<body>
+
+    <video autoplay loop muted plays-inline id="myVideo">
+<source src="images/Digital.mp4" type="video/mp4">
+    </video>
+    <div class="top-section">
+    <nav>
+        <div class="nav-bar">
+          <a href="manageContact.html">Customer Service</a>
+          <a href="manageUsers.html">Manage Users</a>
+        <a href="manageAssest.html">Manage Assets</a>
+        <a href="AddProduct.html">Add Asset</a>
+        <a href="History.html">History</a>
+        <a href="Edit.html">Edit Details</a>
+        <div class="profile-info">
+            <div class="profile-name">
+                <a href="Profile.html" style="text-decoration: none;" id="welcome-message">Welcome, <span id="customer-name"></span></a>
+            </div>
+        </div>   
+        <div class="profile-pic">
+            <img src="images/avatar.jpg" alt="Profile">
+        </div> 
+    </div>
+    </nav>
+ 
+    <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    {
+      "proName": "FX_IDC:EURUSD",
+      "title": "EUR to USD"
+    },
+    {
+      "proName": "FX_IDC:ILSUSD",
+      "title": "ILS to USD"
+    },
+    {
+      "proName": "FX_IDC:GBPUSD",
+      "title": "GBP to USD"
+    },
+    {
+      "proName": "FX_IDC:JPYUSD",
+      "title": "JPY to USD"
+    },
+    {
+      "proName": "FX_IDC:CADUSD",
+      "title": "CAD to USD"
+    },
+    {
+      "proName": "FX_IDC:AUDUSD",
+      "title": "AUD to USD"
+    },
+    {
+      "proName": "FX_IDC:CHFUSD",
+      "title": "CHF to USD"
+    },
+    {
+      "proName": "FX_IDC:CNYUSD",
+      "title": "CNY to USD"
+    },
+    {
+      "proName": "FX_IDC:NZDUSD",
+      "title": "NZD to USD"
+    },
+    {
+      "proName": "FX_IDC:INRUSD",
+      "title": "INR to USD"
+    },
+    {
+      "proName": "FX_IDC:MXNUSD",
+      "title": "MXN to USD"
+    }
+  ],
+  "showSymbolLogo": true,
+  "isTransparent": false,
+  "displayMode": "adaptive",
+  "colorTheme": "dark",
+  "locale": "en"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+
+  </div>
+  <div class="text-box" style="max-width: 70%;">
+  <p>
+      <p class="title">Weclome To Click Trust</p>
+      <img src="images/BlueLogo.png" alt="" style="width: 70%;">
+      <p class="under-text">The largest digital asset trading market in the world!</p>
+      <p class="under-text">Here you can buy and sell digital assets <br> in many categories</p>
+      <h2>Scroll down and purchase digital assets !</h2>
+      </p>
+  </div>
+  
+<!------------------------- Search ------------------------>
+
+<div class="text-box" style="height: 700px;">
+<h1 style="font-size: 40px;">Search Digital Asset</h1><br>
+<div class="search-container" style="margin-left: 50px;">
+  <div>
+    <label for="DateTrans">Search by Date:</label>
+    <input type="date" id="DateTrans" style="width: 180px;" oninput="filterAssets()">
+  </div>
+  <div>
+    <label for="Name">Search by Name</label>
+    <input type="text" id="Name" oninput="filterAssets()">
+  </div>
+  <div>
+    <label for="Category">Search by Category</label>
+    <input type="text" id="Category" oninput="filterAssets()">
+  </div>
+  <div class="price-slider" style="margin-right: 50px;">
+    <label for="price">Max Price: <output for="price" id="price-value">250</output></label><br>
+    <input type="range" id="price" name="price" min="0" max="5000" value="200" onclick="filterAssets()">
+</div>
+<div style="display: flex; align-items: center; margin-right: 30px;">
+  <label for="Sort" style="margin-right: 10px;">Sort Price</label>
+    <button id="sortPriceButton" onclick="sortAssetsByPriceDescending()" style="background: none; border: none; padding: 0;">
+          <img src="images/sort.png" alt="Sort by Price" width="30" height="30">
+      </button>
+  </div>
+  <div style="display: flex; align-items: center; margin-right: 30px;">
+    <button id="clearFiltersButton" onclick="clearFilters()">Clear Filters</button>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 30%;">ID Asset</th>
+      <th style="width: 55%;">Category</th>
+      <th>Name</th>
+      <th>Place</th>
+      <th style="width: 40%;">Date</th>
+      <th style="width: 25%;">Time</th>
+      <th style="width: 30%;">Quantity</th>
+      <th style="width: 25%;">Price($)</th>
+      <th style="width: 30%;">Purchase</th>
+    </tr>
+  </thead>
+  <tbody id="assetTableBody">
+    <!-- Assets will be dynamically added here -->
+  </tbody>
+</table>
+</div>
+
+
+
+<!--------------------- Footer ------------------------>
+
+<footer>
+<div class="social">
+      <div class="social-media">
+          <div class="social-buttons-frame">
+              <p>Come and say hello:</p>
+          <a href="https://www.facebook.com" target="_blank"><img src="images/facebook.png" alt=""></a>
+          <a href="https://x.com/ClickTrust1" target="_blank"><img src="images/twitter.png" alt=""></a>
+          </div>
+        </div>
+  </div>
+      <div class="main-branch-text">
+          <h2>International HQ</h2>
+          </div>
+          <div class="iframe">
+              <div>
+              <h2>Israel</h2>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d34579.96791412882!2d34.799261!3d31.966694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502c11d5e0e7d9b%3A0x6e62283923f46a11!2sCollege%20of%20Management%20Academic%20Studies!5e0!3m2!1sen!2sil!4v1646466304384!5m2!1sen!2sil" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+      <div>
+          <h2>New York</h2>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.5796714050683!2d-74.01121168431196!3d40.70603657933528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1c8d1fcb7b%3A0xdce94ce6f243135!2sNew%20York%20Stock%20Exchange!5e0!3m2!1sen!2sus!4v1646382180613!5m2!1sen!2sus" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div>
+          <h2>San Francisco</h2>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d157372.91674221583!2d-122.67082447374838!3d37.44239264403174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808580d16c1d7a19%3A0xfe986ebe77a05e99!2sSilicon%20Valley%2C%20CA%2C%20USA!5e0!3m2!1sen!2sil!4v1646465546680!5m2!1sen!2si" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+      </div>
+    </footer>
+
+<script>
+
+/*   background video  */
+
+window.addEventListener('DOMContentLoaded', function() {
+  var video = document.getElementById('myVideo');
+  video.addEventListener('loadeddata', function() {
+    fadeInOnce(video); // Call the modified fade-in function
+  }, false);
+});
+
+function fadeInOnce(element) {
+  var op = 0.01; // Initial opacity
+  var timer = setInterval(function() {
+    if (op >= 1) {
+      clearInterval(timer);
+      element.removeEventListener('loadeddata', fadeInOnce); // Remove the event listener after fading in
+    }
+    element.style.opacity = op;
+    op += op * 0.1; // Adjust the fade-in speed here
+  }, 10); // Adjust the interval (in milliseconds) between opacity changes here
+}
+
+/*  top section opacity    */
+
+</script>
+
+<script> /* slide bar */
+const priceSlider = document.getElementById("price");
+const priceValue = document.getElementById("price-value");
+
+priceSlider.addEventListener("input", function() {
+    priceValue.textContent = this.value; // הצגת חצי הערך שנבחר
+});
+</script>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
