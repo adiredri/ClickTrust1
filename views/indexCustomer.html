@@ -34,6 +34,68 @@
     </div>
     </nav>
 
+    <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    {
+      "proName": "FX_IDC:EURUSD",
+      "title": "EUR to USD"
+    },
+    {
+      "proName": "FX_IDC:ILSUSD",
+      "title": "ILS to USD"
+    },
+    {
+      "proName": "FX_IDC:GBPUSD",
+      "title": "GBP to USD"
+    },
+    {
+      "proName": "FX_IDC:JPYUSD",
+      "title": "JPY to USD"
+    },
+    {
+      "proName": "FX_IDC:CADUSD",
+      "title": "CAD to USD"
+    },
+    {
+      "proName": "FX_IDC:AUDUSD",
+      "title": "AUD to USD"
+    },
+    {
+      "proName": "FX_IDC:CHFUSD",
+      "title": "CHF to USD"
+    },
+    {
+      "proName": "FX_IDC:CNYUSD",
+      "title": "CNY to USD"
+    },
+    {
+      "proName": "FX_IDC:NZDUSD",
+      "title": "NZD to USD"
+    },
+    {
+      "proName": "FX_IDC:INRUSD",
+      "title": "INR to USD"
+    },
+    {
+      "proName": "FX_IDC:MXNUSD",
+      "title": "MXN to USD"
+    }
+  ],
+  "showSymbolLogo": true,
+  "isTransparent": false,
+  "displayMode": "adaptive",
+  "colorTheme": "dark",
+  "locale": "en"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+ 
   </div>
     <div class="text-box" style="max-width: 70%;">
     <p>
@@ -107,7 +169,7 @@
             <div class="social-buttons-frame">
                 <p>Come and say hello:</p>
             <a href="https://www.facebook.com" target="_blank"><img src="images/facebook.png" alt=""></a>
-            <a href="https://twitter.com" target="_blank"><img src="images/twitter.png" alt=""></a>
+            <a href="https://x.com/ClickTrust1" target="_blank"><img src="images/twitter.png" alt=""></a>
             </div>
           </div>
     </div>
@@ -117,8 +179,8 @@
             <div class="iframe">
                 <div>
                 <h2>Israel</h2>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d34579.96791412882!2d34.63612204225829!3d31.795924773011166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d4d75a26e2bb%3A0x4d2b2210db3bf6d5!2sAshdod!5e0!3m2!1sen!2sil!4v1646466304384!5m2!1sen!2sil" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d34579.96791412882!2d34.799261!3d31.966694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502c11d5e0e7d9b%3A0x6e62283923f46a11!2sCollege%20of%20Management%20Academic%20Studies!5e0!3m2!1sen!2sil!4v1646466304384!5m2!1sen!2sil" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
         <div>
             <h2>New York</h2>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.5796714050683!2d-74.01121168431196!3d40.70603657933528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1c8d1fcb7b%3A0xdce94ce6f243135!2sNew%20York%20Stock%20Exchange!5e0!3m2!1sen!2sus!4v1646382180613!5m2!1sen!2sus" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -167,6 +229,279 @@ window.addEventListener('DOMContentLoaded', function() {
   </script>
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+
+<!-------------------------------- DB ---------------------------------->
+
+<script>
+  // Define the getFirstName function
+  async function getFirstName(Email) {
+  try {
+    const response = await fetch(`/get-first-name?Email=${Email}`);
+    const data = await response.json();
+    document.getElementById('customer-name').textContent = data.FirstName; // Update the customer's name
+  } catch (error) {
+    console.error('Error fetching first name:', error);
+    document.getElementById('customer-name').textContent = 'Error fetching first name';
+  }
+}
+
+// Retrieve the customer's first name from the URL query parameter
+const urlParams = new URLSearchParams(window.location.search);
+const Email = urlParams.get('Email');
+
+// Update the HTML content with the customer's first name
+window.addEventListener('DOMContentLoaded', () => {
+  getFirstName(Email); // Call the function after the DOM content has been loaded
+  sessionStorage.setItem('Email', Email);
+});
+</script>
+
+<script>   
+   
+   // ----------------------  HELPS FUNCTIONS -----------------------
+
+   // Get email of seller 
+
+   async function getEmailById(AssetId) {
+  try {
+    const response = await fetch(`/assets/${AssetId}/email`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch email');
+    }
+    const { Email } = await response.json();
+    return Email;
+  } catch (error) {
+    console.error('Error fetching email:', error);
+    return null;
+  }
+}
+
+async function updateAssetAvailability(AssetID) {
+
+    try {
+     const response = await fetch(`/assets/${AssetID}`, {
+     method: 'PATCH',
+     headers: {
+    'Content-Type': 'application/json'
+     }
+
+     });
+     if (!response.ok) {
+     throw new Error('Failed to update asset');
+    }
+     console.log('Asset updated successfully');
+     } catch (error) {
+     console.error('Error updating asset:', error);
+     }
+    }
+
+   // ----------------------  ADD TRADE -----------------------
+
+   async function addTrade(event, AssetID, Email) {
+  try {
+    event.preventDefault(); // Prevent default button action (e.g., form submission)
+    
+    const BuyerEmail = Email; // Get buyer's email from sessionStorage
+    if (!BuyerEmail) {
+      throw new Error('Buyer email not found in sessionStorage');
+    }
+
+    const SellerEmail = await getEmailById(AssetID); // Get seller's email
+
+    if (!SellerEmail) {
+      throw new Error('Seller email not found');
+    }
+
+    if (confirm('Are you sure you want to buy?')) {
+      if (BuyerEmail === SellerEmail) { // Check if buyer's email equals seller's email
+    alert('Transaction canceled. You cant buy your asset.');
+  } else {
+    await createTransaction(AssetID, BuyerEmail, SellerEmail); // Create transaction
+  }
+    } else {
+      // User canceled the trade
+      alert('Trade canceled.');
+    }
+    // Optionally, you can perform further actions after the transaction is created
+  } catch (error) {
+    console.error('Error adding trade:', error);
+  }
+}
+
+async function createTransaction(AssetID, BuyerEmail, SellerEmail) {
+
+  try {
+    const currentDate = new Date();
+    const trade = {
+      TransDate: currentDate.toISOString().split('T')[0],
+      TransTime: currentDate.toTimeString().split(' ')[0],
+      AssetID: AssetID,
+      SellerEmail: SellerEmail,
+      BuyerEmail: BuyerEmail,
+    };
+
+      await updateAssetAvailability(AssetID);   // Available = false
+
+      const response = await fetch('/addTrade', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(trade)
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(`Failed to create transaction: ${errorMessage}`);
+    }
+
+    console.log('Transaction created successfully');
+    alert('Transaction created successfully');
+    location.reload(); // Reload the page
+
+  } catch (error) {
+    console.error('Error creating transaction:', error);
+  }
+}
+
+</script>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+  
+  fetchAssets();   // Fetch assets when the page loads
+
+   // ----------------------  SHOW ASSETS -----------------------
+
+  async function fetchAssets() {
+    try {
+      const response = await fetch('/assets/available');
+      if (!response.ok) {
+        throw new Error('Failed to fetch assets');
+      }
+      const assets = await response.json();
+      renderAssets(assets);
+      console.log('Assets:', assets);
+    } catch (error) {
+      console.error('Error fetching assets:', error);
+    }
+  }
+
+  function renderAssets(assets) {
+    const assetTableBody = document.getElementById('assetTableBody');
+    assetTableBody.innerHTML = ''; // Clear existing rows
+    assets.forEach((asset) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+       <td style="width: 30%;">${asset._id}</td>
+       <td style="width: 55%;">${asset.Category}</td>
+       <td>${asset.NameDigitalAsset}</td>
+       <td>${asset.Place}</td>
+       <td style="width: 40%;">${formatDate(asset.Date)}</td>
+       <td style="width: 25%;">${formatTime(asset.Time)}</td>
+       <td style="width: 30%;">${asset.Quantity}</td>
+       <td style="width: 25%;">${asset.Price}</td>
+       <td style="width: 30%;">
+       <button class="buy-button" onclick="addTrade(event, '${asset._id}', '${Email}')">Buy</button>
+       </td>
+      `;
+
+      assetTableBody.appendChild(row);
+    });
+  }
+
+   // ----------------------  FILTERS & SORTS -----------------------
+
+
+   async function filterAssets() {
+    const searchByDate = document.getElementById('DateTrans');
+    const searchByName = document.getElementById('Name');
+    const searchByCategory = document.getElementById('Category');
+    const maxPrice = document.getElementById('price');
+
+    const assets = Array.from(document.getElementById('assetTableBody').getElementsByTagName('tr'));
+
+    assets.forEach((asset) => {
+      const DateTrans = asset.children[4].innerText;
+      const AssetName = asset.children[2].innerText;
+      const Category = asset.children[1].innerText;
+      const price = parseFloat(asset.children[7].innerText);
+
+      asset.style.display = '';
+
+      if (searchByDate.value && !DateTrans.toLowerCase().includes(searchByDate.value.toLowerCase())) {
+        asset.style.display = 'none';
+      }
+
+      if (searchByName.value && !AssetName.toLowerCase().includes(searchByName.value.toLowerCase())) {
+        asset.style.display = 'none';
+      }
+
+      if (searchByCategory.value && !Category.toLowerCase().includes(searchByCategory.value.toLowerCase())) {
+        asset.style.display = 'none';
+      }
+
+      if (maxPrice.value && price > parseFloat(maxPrice.value)) {
+        asset.style.display = 'none';
+      }
+    });
+  }
+  let ascendingOrder = true;
+
+    function sortAssetsByPriceDescending() {
+    const assetTableBody = document.getElementById('assetTableBody');
+    const assets = Array.from(assetTableBody.getElementsByTagName('tr'));
+
+    assets.sort((a, b) => {
+        const priceA = parseFloat(a.children[7].innerText);
+        const priceB = parseFloat(b.children[7].innerText);
+        return ascendingOrder ? priceA - priceB : priceB - priceA;
+    });
+
+    assetTableBody.innerHTML = '';
+    assets.forEach(asset => {
+    assetTableBody.appendChild(asset);
+    });
+
+    ascendingOrder = !ascendingOrder;
+}
+function clearFilters() {  // Clear the sorts
+  document.getElementById('DateTrans').value = '';
+  document.getElementById('Name').value = '';
+  document.getElementById('Category').value = '';
+  document.getElementById('price').value = '';
+  filterAssets(); 
+}
+
+  // ---------- Event listeners ----------
+
+  document.getElementById('DateTrans').addEventListener('input', filterAssets);
+  document.getElementById('Name').addEventListener('input', filterAssets);
+  document.getElementById('Category').addEventListener('input', filterAssets);
+  document.getElementById('price').addEventListener('input', filterAssets);
+  document.getElementById('sortPriceButton').addEventListener('click', sortAssetsByPriceDescending);
+  document.getElementById('clearFiltersButton').addEventListener('click', clearFilters);
+
+  // ---------- FORMATS -----------
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    // Format the date as desired (e.g., YYYY-MM-DD)
+    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+    return formattedDate;
+  }
+
+  function formatTime(timeString) {
+    // Implement time formatting if needed
+    return timeString;
+  }
+
+  // ----------------------------------------------------------------
+
+  });
+
+</script>
 
 </body>
 </html>

@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
+require('./tweet.js');
+
 const app = express();
 
 // Connect to MongoDB____________________________________________________________________________

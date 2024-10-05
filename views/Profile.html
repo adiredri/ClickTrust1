@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles/Profile.css">
+</head>
+<body>
+
+    <!-- start video, navbar, logo, widget -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="images\global2.mp4" type="video/mp4">
+        </video>
+    </div>
+    <nav>
+        <div class="nav-bar">
+            <a href="Contact.html">Contact Us</a>
+            <a href="About.html">About Us</a>
+            <a href="AddProduct.html">Add Asset</a>
+            <a href="History.html">History</a>
+            <a href="SignUp.html">Log Out</a>
+        </div>
+    </nav>
+    <div class="logo">
+        <img src="images/WhiteLogo.png" alt="My Logo" class="logo">
+    </div>
+    <div id="widget">
+        <a id="home-link" href="#"> 
+            <img src="images/homepage.png" alt="Image" id="widget-image"></a>
+    </div>
+    <!-- end video, navbar, logo, widget -->
+
+    <!-- start right form -->
+    <div class="wrapper">
+        <div class="container right">
+            <h1>Menu</h1>
+            <div class="ProfilePic" id="ProfilePic">
+                <img src="images/avatar3.jpg" alt="ProfilePic">
+            </div>
+            <form>
+                <br><br><br><br>
+                <h2>Hi, <span id="customer-name"></span></h2>
+                <a href="AddProduct.html" class="menu-button">Add New Digital Asset</a>
+                <a href="History.html" class="menu-button">Buy & Sell History</a>
+                <a href="Edit.html" class="menu-button">Edit Details</a>
+            </form>
+    </div></div>
+
+    <!-- end right form -->
+      
+    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+
+<script> // home page customer / admin
+
+// Define the getFirstName function
+async function getFirstName(Email) {
+try {
+  const response = await fetch(`/get-first-name?Email=${Email}`);
+  const data = await response.json();
+  document.getElementById('customer-name').textContent = data.FirstName; // Update the customer's name
+} catch (error) {
+  console.error('Error fetching first name:', error);
+  document.getElementById('customer-name').textContent = 'Error fetching first name';
+}
+}
+
+// Update the HTML content with the customer's first name
+window.addEventListener('DOMContentLoaded', () => {
+  getFirstName(Email); // Call the function after the DOM content has been loaded
+  sessionStorage.setItem('Email', Email);
+});
+
+// Retrieve the email from session storage
+const Email = sessionStorage.getItem('Email');
+      
+// Determine the home page URL based on the user's role
+let homePageUrl;
+    if (Email === null) { 
+          homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+    } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com' || Email === 'Nogga.ovadya@gmail.com') {
+          homePageUrl = '/admin?Email=' + Email;
+    } else {
+          homePageUrl = '/customer?Email=' + Email;
+    }
+      
+    // Set the href attribute of the home link
+    const homeLink = document.getElementById('home-link');
+     homeLink.setAttribute('href', homePageUrl);
+</script>
+
+</body>
+</html>

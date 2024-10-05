@@ -38,7 +38,81 @@
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
 
-<!-- scripts here for adding contact -->
+<script> // home page customer / admin
+
+    // Retrieve the email from session storage
+     const Email = sessionStorage.getItem('Email');
+  
+    // Determine the home page URL based on the user's role
+    let homePageUrl;
+    if (Email === null) { 
+      homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+    } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com') {
+      homePageUrl = '/admin?Email=' + Email;
+    } else {
+      homePageUrl = '/customer?Email=' + Email;
+    }
+  
+     // Set the href attribute of the home link
+     const homeLink = document.getElementById('home-link');
+     homeLink.setAttribute('href', homePageUrl);
+  </script>
+
+
+
+
+<script>
+
+    async function addContact(event) {
+      try {
+        event.preventDefault(); // Prevent default button action (e.g., form submission)
+    
+        if (confirm('Are you sure you want to send this massege?')) {
+          await createContact(); // Create massege
+        } else {
+          // User canceled the action
+          alert('Send Massege canceled.');
+        }
+      } catch (error) {
+        console.error('Error adding massege:', error);
+      }
+    }
+    
+    
+    async function createContact() {
+      try {
+        const formData = new FormData(document.getElementById('contactForm'));
+        
+        const data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
+        
+        const response = await fetch('/addContact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+    
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(`Failed to create contact: ${errorMessage}`);
+        }
+    
+        console.log('Massege send successfully');
+        alert('Massege send successfully');
+        location.reload(); 
+    
+      } catch (error) {
+        console.error('Error creating massege:', error);
+        console.log(error);
+      }
+    }
+    
+</script>
+
 
 </body>
 </html>
