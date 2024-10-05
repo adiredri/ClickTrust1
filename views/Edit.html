@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Details</title>
+    <link rel="stylesheet" href="styles/Edit.css">
+</head>
+<body>
+
+    <!-- start video, navbar, logo, widget -->
+
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="images/global2.mp4" type="video/mp4">
+        </video>
+    </div>
+    <nav>
+        <div class="nav-bar">
+        <a href="Contact.html">Contact Us</a>
+        <a href="About.html">About Us</a>
+        <a href="AddProduct.html">Add Asset</a>
+        <a href="History.html">History</a>
+        <a href="SignUp.html">Log Out</a>
+        </div>
+    </nav>
+    <div class="logo">
+        <img src="images/WhiteLogo.png" alt="My Logo" class="logo">
+    </div>
+    <div id="widget">
+        <a id="home-link" href="#"> 
+            <img src="images/homepage.png" alt="Image" id="widget-image"></a>
+    </div>
+
+        <!-- end video, navbar, logo, widget -->
+
+        <!-- start left form -->
+
+        <div class="container left">
+            <form style="margin-top: -190px;" action="/update-user" method="POST">
+                <h2>Edit Personal Details</h2><br>
+                <input type="number" id="ID" name="ID" placeholder="ID" required><br><br>
+                <input type="text" id="FirstName" name="FirstName" placeholder="First name" required><br><br>
+                <input type="text" id="LastName" name="LastName" placeholder="Last name" required><br><br>
+                <input type="email" id="Email" name="Email" placeholder="Email" required readonly><br><br>
+                <input type="text" id="Password" name="Password" placeholder="Password" required><br><br>
+                <input type="tel" id="Phone" name="Phone" placeholder="Phone" required><br><br>
+                <input type="date" id="Birthday" name="Birthday" placeholder="Birthday" required><br><br><br><br>
+                <div class="gender-options">
+                    <input type="radio" id="male" name="gender" value="male"><label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
+                    <input type="radio" id="other" name="gender" value="other"><label for="other">Other</label>
+                </div><br><br>
+                <input type="submit" value="Update" id="update-button" style="margin-top: 20px; margin-bottom: 150px;">
+            </form>
+        </div>
+
+            <!-- end left form -->
+
+            <!-- start right form -->
+
+            <div class="container right">
+                <h1>Menu</h1>
+                <div class="ProfilePic" id="ProfilePic">
+                    <img src="images/avatar3.jpg" alt="ProfilePic">
+                </div>
+                <form style="margin-top: 120px;">
+                    <br><br><br><br>
+                    <h2>Hi, <span id="customer-name"></span></h2>
+                    <a href="AddProduct.html" class="menu-button">Add New Digital Asset</a>
+                    <a href="History.html" class="menu-button">Buy & Sell History</a>
+                    <a class="choosed-button">Edit Details</a>
+                </form>
+            </div>
+
+      <!-- end right form -->
+      <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+      <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+
+
+<!-- add script for fetching and displaying user data-->>
+
+</body>
+</html>
