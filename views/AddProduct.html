@@ -114,9 +114,125 @@
       <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
 </body>
 
-<!-- add script for getting and showing customer information -->>
+<script> // home page customer / admin
+
+    // Define the getFirstName function
+    async function getFirstName(Email) {
+    try {
+      const response = await fetch(`/get-first-name?Email=${Email}`);
+      const data = await response.json();
+      document.getElementById('customer-name').textContent = data.FirstName; // Update the customer's name
+    } catch (error) {
+      console.error('Error fetching first name:', error);
+      document.getElementById('customer-name').textContent = 'Error fetching first name';
+    }
+    }
+    
+    // Update the HTML content with the customer's first name
+    window.addEventListener('DOMContentLoaded', () => {
+      getFirstName(Email); // Call the function after the DOM content has been loaded
+      sessionStorage.setItem('Email', Email);
+    });
+    
+            // Retrieve the email from session storage
+             const Email = sessionStorage.getItem('Email');
+          
+            // Determine the home page URL based on the user's role
+            let homePageUrl;
+            if (Email === null) { 
+              homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+            } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com') {
+              homePageUrl = '/admin?Email=' + Email;
+            } else {
+              homePageUrl = '/customer?Email=' + Email;
+            }
+          
+             // Set the href attribute of the home link
+             const homeLink = document.getElementById('home-link');
+             homeLink.setAttribute('href', homePageUrl);
+</script>
 
 
-<!-- add script for adding a product -->
+<script>
+
+async function addAsset(event) {
+  try {
+    event.preventDefault(); // Prevent default button action (e.g., form submission)
+
+    if (confirm('Are you sure you want to Add?')) {
+      await createAsset(); // Create asset
+    } else {
+      // User canceled the action
+      alert('Add Asset canceled.');
+    }
+  } catch (error) {
+    console.error('Error adding asset:', error);
+  }
+}
+
+
+async function createAsset() {
+  try {
+    const formData = new FormData(document.getElementById('assetForm'));
+    const price = formData.get('Price');
+    const date = formData.get('Date');
+    const time = formData.get('Time');
+    const currentDate = new Date();
+    const datetimeString = `${date}T${time}`;
+    const selectedDate = new Date(datetimeString);
+
+    if (date.trim() === '') {
+      alert('Please enter a valid date.');
+      return;
+    }
+
+    if (time.trim() === '') {
+      alert('Please enter a valid time.');
+      return;
+    }
+
+    if (parseInt(price) > 5000) {
+      alert('Price cannot be greater than 5000.');
+      location.reload(); 
+      return;
+    }
+
+    if (selectedDate < currentDate) {
+      alert('Date cannot be in the past.');
+      location.reload(); 
+      return;
+    }
+
+    const data = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+
+    data['Email'] = sessionStorage.getItem('Email');
+    
+    const response = await fetch('/addAsset', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(`Failed to create asset: ${errorMessage}`);
+    }
+
+    console.log('Asset created successfully');
+    alert('Asset created successfully');
+    location.reload(); 
+
+  } catch (error) {
+    console.error('Error creating asset:', error);
+  }
+}
+
+
+</script>
   
 </html>

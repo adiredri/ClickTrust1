@@ -335,6 +335,47 @@ router.get('/reset', function (req, res) {
   
 //  ------------------------------------------ ASSETS -----------------------------------------------
 
+// --------- Adds asset to the DB -----------
+
+router.post('/addAsset', async (req, res) => {
+  const asset = new Asset({
+    Category: req.body.Category,
+    NameDigitalAsset: req.body.NameDigitalAsset,
+    Place: req.body.Place,
+    Date: req.body.Date,
+    Time: req.body.Time,
+    Quantity: req.body.Quantity,
+    Price: req.body.Price,
+    Email: req.body.Email,
+    Available: req.body.Available,
+  });
+  const tweetContent = `We are exited to announe that we Just added a new asset\nby the name ${asset.NameDigitalAsset} from Category ${asset.Category} to our trading platform!\nfor the price of just ${asset.Price}$!.\n\nGood Luck Trading!`;
+
+  try {   
+
+    // Save the Asset to the database
+    await asset.save();
+    console.log('Asset added successfully'); 
+
+    const tweet = async () => {
+      try {
+        await twitterClient.v2.tweet(tweetContent);
+        console.log("activated the tweet function-tweeted the tweet");
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    tweet();
+
+    res.status(200).json({ success: true }); // Sending a success response
+
+  } catch (error) {
+    const errorMessage = 'An error occurred while adding the asset.';
+    console.error(errorMessage);
+    console.error(error); // Log the error object
+
+  }
+});
 
 //  ------------------------------------------ TRADES ----------------------------------------------------
 
