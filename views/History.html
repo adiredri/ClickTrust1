@@ -102,7 +102,183 @@
 
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
-<!-- script to display history from db-->>
+
+<script> // home page customer / admin
+
+  // Retrieve the email from session storage
+   const Email = sessionStorage.getItem('Email');
+
+  // Determine the home page URL based on the user's role
+  let homePageUrl;
+  if (Email === null) { 
+    homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+  } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com') {
+    homePageUrl = '/admin?Email=' + Email;
+  } else {
+    homePageUrl = '/customer?Email=' + Email;
+  }
+
+   // Set the href attribute of the home link
+   const homeLink = document.getElementById('home-link');
+   homeLink.setAttribute('href', homePageUrl);
+</script>
+
+
+
+
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+   // ----------------------  SHOW ASSETS -----------------------
+
+   function checkAssetInfo(trade) {
+  if (Array.isArray(trade.asset_info) && trade.asset_info.length > 0) {
+    console.log("YES asset_info");
+    return trade.asset_info[0];
+  } else {
+    console.log("NO asset_info");
+    return {};
+  }
+}
+
+async function renderAssets() {
+  const userEmail = sessionStorage.getItem('Email');
+  try {
+    const response = await fetch(`/user-trades?Email=${userEmail}`);
+    const userTrades = await response.json();
+    console.log('User trades:', userTrades); // Add this line to check the received data
+
+    const tradeTableBody = document.getElementById('tradeTableBody');
+    tradeTableBody.innerHTML = ''; // Clear existing rows
+
+    userTrades.forEach((trade) => {
+      console.log('Trade:', trade); // Add this line to check each trade object
+
+      const asset = checkAssetInfo(trade); // Check asset info
+      console.log('Asset:', asset); // Add this line to check the asset info
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td style="width: 25%">${trade._id}</td>
+        <td style="width: 30%">${formatDate(trade.TransDate)}</td>
+        <td style="width: 25%">${trade.TransTime}</td>
+        <td class="trade-type" style="width: 25%">${trade.BuyerEmail === userEmail ? 'Buy' : 'Sell'}</td>
+        <td style="width: 25%">${trade.AssetID}</td>
+        <td>${asset.Category || ''}</td>
+        <td>${asset.NameDigitalAsset || ''}</td>
+        <td>${asset.Place || ''}</td>
+        <td style="width: 30%">${formatDate(asset.Date) || ''}</td>
+        <td style="width: 25%">${asset.Time || ''}</td>
+        <td style="width: 30%">${asset.Quantity || ''}</td>
+        <td style="width: 30%">${asset.Price || ''}</td>
+        <td style="width: 50%">${trade.BuyerEmail === userEmail ? trade.SellerEmail : trade.BuyerEmail}</td>
+      `;
+      
+      tradeTableBody.appendChild(row);
+    });
+  } catch (error) {
+    console.error('Error fetching user trades:', error);
+  }
+}
+
+// Call the renderAssets function when the page is loaded
+window.onload = renderAssets;
+
+   // ----------------------  FILTERS & SORTS -----------------------
+
+
+   async function filterAssets() {
+    const searchByDate = document.getElementById('DateTrans');
+    const searchByName = document.getElementById('Name');
+    const searchByCategory = document.getElementById('Category');
+    const maxPrice = document.getElementById('price');
+
+    const assets = Array.from(document.getElementById('tradeTableBody').getElementsByTagName('tr'));
+
+    assets.forEach((asset) => {
+      const DateTrans = asset.children[1].innerText;
+      const AssetName = asset.children[6].innerText;
+      const Category = asset.children[5].innerText;
+      const price = parseFloat(asset.children[11].innerText);
+
+      asset.style.display = '';
+
+      if (searchByDate.value && !DateTrans.toLowerCase().includes(searchByDate.value.toLowerCase())) {
+        asset.style.display = 'none';
+      }
+
+      if (searchByName.value && !AssetName.toLowerCase().includes(searchByName.value.toLowerCase())) {
+        asset.style.display = 'none';
+      }
+
+      if (searchByCategory.value && !Category.toLowerCase().includes(searchByCategory.value.toLowerCase())) {
+        asset.style.display = 'none';
+      }
+
+      if (maxPrice.value && price > parseFloat(maxPrice.value)) {
+        asset.style.display = 'none';
+      }
+    });
+  }
+  let ascendingOrder = true;
+
+    function sortAssetsByPriceDescending() {
+    const tradeTableBody = document.getElementById('tradeTableBody');
+    const assets = Array.from(tradeTableBody.getElementsByTagName('tr'));
+
+    assets.sort((a, b) => {
+        const priceA = parseFloat(a.children[11].innerText);
+        const priceB = parseFloat(b.children[11].innerText);
+        return ascendingOrder ? priceA - priceB : priceB - priceA;
+    });
+
+    tradeTableBody.innerHTML = '';
+    assets.forEach(asset => {
+    tradeTableBody.appendChild(asset);
+    });
+
+    ascendingOrder = !ascendingOrder;
+}
+
+function clearFilters() {  // Clear the sorts
+  document.getElementById('DateTrans').value = '';
+  document.getElementById('Name').value = '';
+  document.getElementById('Category').value = '';
+  document.getElementById('price').value = '';
+  filterAssets(); // קריאה לפונקציה לסינון
+}
+
+  // --------------------------- Event listeners ----------------------
+
+  document.getElementById('DateTrans').addEventListener('input', filterAssets);
+  document.getElementById('Name').addEventListener('input', filterAssets);
+  document.getElementById('Category').addEventListener('input', filterAssets);
+  document.getElementById('price').addEventListener('input', filterAssets);
+  document.getElementById('sortPriceButton').addEventListener('click', sortAssetsByPriceDescending);
+  document.getElementById('clearFiltersButton').addEventListener('click', clearFilters);
+
+  // -------------------------------- FORMATS ----------------------
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    // Format the date as desired (e.g., YYYY-MM-DD)
+    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+    return formattedDate;
+  }
+
+  function formatTime(timeString) {
+    // Implement time formatting if needed
+    return timeString;
+  }
+
+  // ----------------------------------------------------------------
+
+  });
+
+</script>
 
 
 </body>
