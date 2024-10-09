@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <link rel="stylesheet" href="styles/About.css">
+</head>
+<body>
+  <div id="widget">
+    <a id="home-link" href="#"> 
+        <img src="images/homepage.png" alt="Image" id="widget-image"></a>
+</div>
+  <div class="logo">
+    <img src="images/BlueLogo.png" alt="My Logo" class="logo">
+</div>
+<div class="top-section"></div>
+<div class="centered-text">
+    <h1>About Us</h1>
+  </div>
+<div class="middle-section">
+  <video src="images/homepagevideo.mp4" autoplay loop muted></video>
+</div>
+<div>
+    <form class="text-box">
+        <h2>! ClickTrust ברוכים הבאים ל</h2>
+        <p>       
+בואו להכיר את המהנדסים הבאים של העתיד
+<br>
+אנחנו סטודנטים במכללה למנהל במסלול מדעי המחשב.
+המסע שלנו לאתר זה התחיל בעקבות חוויה אישית של ניסיון שלא הצליח למכור כרטיסים להופעה שלא יכולנו להגיע אליה.
+ מתוך הכרה בכך כבעיה שצריכה פתרון, יזמנו את הרעיון לאתר. 
+יישמנו את הכישורים שרכשנו במהלך לימודינו אל תוך האתר על מנת להעניק למשתמשים שלנו חוויה חדשה ואמינה יותר בתחום שלעתים קרובות יכול להיות מאתגר לניווט. אנחנו פה כדי לדאוג של כולם יהיה הזדמנות לרכוש דיגיטלים ברשת בצורה בטוחה. 
+            <h2> !תודה שביקרתם</h2>
+        </form>
+    </div>
+<div class="manager" id="manager1">
+    <img src="images/adir.jpg" alt="Manager 1">
+</div>
+<div class="title1"><p>Adir Edri<br>CEO & Founder</p></div> 
+
+  <div class="manager" id="manager2">
+    <img src="images/Afik.jpg" alt="Manager 2">
+  </div>
+<div class="title2"><p>Afik Swissa<br>CEO & Founder</p></div> 
+
+<div class="manager" id="manager3">
+    <img src="images/nogga.jpg" alt="Manager 3">
+  </div>
+<div class="title3"><p>Nogga Ovadya<br>CEO & Founder</p></div> 
+
+<div class="manager" id="manager4">
+    <img src="images/avatar.jpg" alt="Manager 4">
+  </div>
+<div class="title4"><p>Yael<br>CEO & Founder</p></div> 
+
+<div class="bottom-section"></div>
+<div class="linkedin-section">
+    <p>Add us on</p>
+    <a href="https://www.linkedin.com">
+    <img src="images/LinkedIn.png" alt="LinkedIn Logo">
+</a>
+</div>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+
+<script> // home page customer / admin
+
+  // Retrieve the email from session storage
+   const Email = sessionStorage.getItem('Email');
+
+  // Determine the home page URL based on the user's role
+  let homePageUrl;
+  if (Email === null) { 
+    homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+  } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com' || Email === 'Nogga.ovadya@gmail.com') {
+    homePageUrl = '/admin?Email=' + Email;
+  } else {
+    homePageUrl = '/customer?Email=' + Email;
+  }
+
+   // Set the href attribute of the home link
+   const homeLink = document.getElementById('home-link');
+   homeLink.setAttribute('href', homePageUrl);
+</script>
+
+</body>
+</html>
