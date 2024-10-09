@@ -118,3 +118,128 @@ nav {
     z-index: -1;
 }
 
+/*  ------------  text boxes ------------- */
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
+    backdrop-filter: blur(60px); 
+    -webkit-backdrop-filter: blur(60px);
+    border-radius: 20px;
+    border:1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 600px;
+    height: 520px;
+    width: 40%;
+    margin-top: 140px;
+}
+
+.container form{
+    padding: 2px;
+    height: 300px;
+    margin-bottom: 30px;
+    margin-top: 120px;
+    width: 90%;
+    line-height: 0.5;  
+}
+
+.left {
+   margin-left: 20px;
+   float: left;
+   clear: left;
+}
+
+.right {
+   margin-right: 20px;
+   float: right;
+   clear: right;
+   width: 300px;
+}
+
+.container input{
+   
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    height: 25px;
+    width: 85%;
+    padding-top: 4px;
+    margin-top: 5px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(80px); 
+    -webkit-backdrop-filter: blur(80px);
+    border-radius: 20px;
+    border:1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    animation-duration: 2s;
+    transition: all 0.3s ease;
+    text-align: center;
+    
+}
+
+.container p{
+   
+   margin-top: 10px;
+   color: white;
+   width: 100%;
+   font-size: 18px;
+}
+.container a {
+   color: white;
+   text-decoration: none;
+   align-items: center;
+   text-align: center;
+   justify-content: center;
+}
+
+.ProfilePic {
+   position: fixed;
+   width: 160px; 
+   height: 160px; 
+   border-radius: 50%; 
+   overflow: hidden; 
+   position: absolute; 
+   top: 90px;
+
+ }
+
+ .ProfilePic img {
+   width: 100%; 
+   height: auto; 
+ }
+ 
+ .ProfilePic p {
+   margin-top: -40px; 
+   color: rgb(0, 0, 0); 
+ }
+
+ .menu-button {
+   display: block;
+   width: 80%;
+   color: white;
+   animation-duration: 2s;
+   transition: font-size 0.3s ease, box-shadow 0.2s ease, width 0.2s ease,height 0.2s ease;/* Add a transition for smooth animation */
+   border:1px solid rgba(255, 255, 255, 0.1);
+   border-radius: 30px;
+   padding: 15px 20px;
+   margin: 10px auto;
+   text-align: center;
+   font-size: 18px;
+}
+
+.menu-button:hover {
+   transform: translateY(-2px);
+   width: 90%;
+   font-size: 22px;
+   height: 10px;
+   box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+}
+
+.menu-button:focus {
+   background-color: #45a049;
+}
+
+
