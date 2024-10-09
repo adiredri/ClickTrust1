@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManageContacts</title>
+    <link rel="stylesheet" href="styles/manage.css">
+</head>
+<body>
+
+    <!-- start video, navbar, logo, widget -->
+
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="images\Digital.mp4" type="video/mp4">
+        </video>
+    </div>
+    <nav>
+        <div class="nav-bar">
+        <a href="manageUsers.html">Manage Users</a>
+        <a href="manageAssest.html">Manage Asset</a>
+        <a href="AddProduct.html">Add Asset</a>
+        <a href="History.html">History</a>
+        <a href="SignUp.html">Log Out</a>
+        </div>
+    </nav>
+    <div class="logo">
+        <img src="images/WhiteLogo.png" alt="My Logo" class="logo">
+    </div>
+    <div id="widget">
+        <a id="home-link" href="#">
+            <img src="images/homepage.png" alt="Image" id="widget-image"></a>
+    </div>
+
+        <!-- end video, navbar, logo, widget -->
+
+<div class="text-box">
+    <div class="container">
+    <h1>Manage Contacts</h1>
+    <div class="search-container">
+      <div>
+        <label for="Name">Search by Name:</label>
+        <input type="text" id="Name" style="width: 200px;" oninput="filterContacts()">
+      </div>
+      <div>
+        <label for="Email">Search by Email</label>
+        <input type="text" id="Email" style="width: 200px;" oninput="filterContacts()">
+      </div>
+      <div>
+        <label for="Phone">Search by Phone</label>
+        <input type="number" id="Phone" style="width: 200px;" oninput="filterContacts()">
+      </div>
+      <div style="display: flex; align-items: center; margin-right: 30px;">
+        <button id="clearFiltersButton" onclick="clearFilters()">Clear Filters</button>
+    </div>
+    </div>
+
+    <table>
+        <thead>
+          <tr style="color: white;">
+            <th style="width: 30%">ID Massege</th>
+            <th style="width: 40%">Name</th>
+            <th style="width: 50%">Email</th>
+            <th style="width: 30%">Phone</th>
+            <th style="width: 200%">Massege</th>
+            <th style="width: 25%">Delete</th>
+          </tr>
+        </thead>
+        <tbody id="contactTableBody">
+          <!-- contacts will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+
+<!-- script for collecting and displaying user data -->
+
+<!-- script for deleting contact-->
+
+<!-- script for showing contact-->
+
+</body>
+</html>

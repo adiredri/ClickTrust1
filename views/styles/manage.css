@@ -1,0 +1,195 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+h1 {
+    font-family: Arial, sans-serif; /* בחירת גופן */
+    color: white; /* צבע טקסט לבן */
+    padding: 15px 20px; /* ריווחים בתוך הכותרת */
+    margin-top: -1px;
+}
+h2 {
+    font-family: Arial, sans-serif; /* בחירת גופן */
+    color: white; /* צבע טקסט לבן */
+    padding: 10px 20px; /* ריווחים בתוך הכותרת */
+}
+
+/*  ------------  nav bar, video, logo and home page ------------- */
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-bottom: solid 2px white;
+    padding-bottom: 5px;
+}
+
+.nav-bar {
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-top: 5px;
+}
+
+.nav-bar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 2%;
+    flex-grow: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 0;    
+
+}
+.top-section {
+    width: 100%;
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    height: 36px;
+}
+
+.logo {
+    position: fixed;
+    max-height: 60px; /* גובה מרבי של הלוגו */
+    max-width: 90%; /* רוחב מרבי של הלוגו */
+    top: 50px; /* מרחק מהגבול העליון של המסך */
+    left: 20px; /* מרחק מהגבול השמאלי של המסך */
+    z-index: 999; /* מבטיח שהלוגו יוצג מעל כל שאר האלמנטים בעמוד */
+}
+
+#widget {
+    background-color: rgb(59, 64, 156);
+    width: 50px; /* רוחב */
+    height: 50px; /* גובה */
+    border-radius: 50%; /* צורת העיגול */
+    position: fixed; /* כדי להצמיד אותו לצד הימני */
+    top: 45px; /* מרחק מהלמעלה */
+    right: 20px; /* מרחק מצד ימין */
+    cursor: pointer; /* כדי להראות שמדובר בכפתור שניתן ללחיצה */
+    display: flex; /* כדי לאפשר מרכוז תוכן בתוך העיגול */
+    justify-content: center; /* מרכוז תוכן אופקית בתוך העיגול */
+    align-items: center; /* מרכוז תוכן אנכית בתוך העיגול */
+    color: white; /* צבע הטקסט בתוך העיגול */
+    font-weight: bold; /* משקל הגופן */
+}
+
+#widget img {
+    max-width: 80%; /* קיטון התמונה */
+    max-height: 80%; /* קיטון התמונה */
+    border-radius: 50%; /* לשמור על צורת העיגול */
+    display: block;
+    margin: auto; /* מרכז את התמונה באופן אוטומטי בתוך העיגול */
+}
+
+.video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+/*  ------------  text boxes ------------- */
+
+
+ .container{
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
+  backdrop-filter: blur(60px); 
+  -webkit-backdrop-filter: blur(60px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  width: 90%;
+  height: 70%;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 13px; 
+
+ }
+ 
+ .container form{
+     padding: 2px;
+     height: 40%;
+     width: 90%;
+ }
+
+
+.container input{
+    
+     color: rgba(255, 255, 255, 0.9);
+     font-size: 18px;
+     height: 25px;
+     width: 85%;
+     background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+     backdrop-filter: blur(80px); 
+     -webkit-backdrop-filter: blur(80px);
+     border-radius: 20px;
+     border:1px solid rgba(255, 255, 255, 0.05);
+     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+     animation-duration: 2s;
+     transition: all 0.3s ease;
+     text-align: center;
+     
+ }
+
+ input::placeholder{
+    color: rgb(218, 211, 211);
+    text-align: center;
+    font-size: 20px;
+}
+.container p{
+    
+    margin-top: 10px;
+    color: white;
+    width: 100%;
+    font-size: 18px;
+}
+.container a {
+    color: white;
+    text-decoration: none;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+  
+  .ProfilePic p {
+    margin-top: -40px; 
+    color: rgb(0, 0, 0); 
+  }
