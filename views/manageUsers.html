@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManageUsers</title>
+    <link rel="stylesheet" href="styles/manage.css">
+</head>
+<body>
+
+    <!-- start video, navbar, logo, widget -->
+
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="images\Digital.mp4" type="video/mp4">
+        </video>
+    </div>
+    <nav>
+        <div class="nav-bar">
+        <a href="manageContact.html">Customer Service</a>
+        <a href="manageAssest.html">Manage Assets</a>
+        <a href="AddProduct.html">Add Asset</a>
+        <a href="History.html">History</a>
+        <a href="SignUp.html">Log Out</a>
+        </div>
+    </nav>
+    <div class="logo">
+        <img src="images/WhiteLogo.png" alt="My Logo" class="logo">
+    </div>
+    <div id="widget">
+        <a id="home-link" href="#">
+            <img src="images/homepage.png" alt="Image" id="widget-image"></a>
+    </div>
+
+        <!-- end video, navbar, logo, widget -->
+
+<div class="text-box">
+    <div class="container">
+    <h1>Manage Users</h1>
+    <div class="search-container">
+      <div>
+        <label for="ID">Search by ID:</label>
+        <input type="number" id="ID" style="width: 220px;" oninput="filterUsers()" step="0.01">
+      </div>
+      <div>
+        <label for="Fname">Search by First Name</label>
+        <input type="text" id="Fname" style="width: 220px;" oninput="filterUsers()">
+      </div>
+      <div>
+        <label for="Lname">Search by Last Name</label>
+        <input type="text" id="Lname" style="width: 220px;" oninput="filterUsers()">
+      </div>
+
+    <div style="display: flex; align-items: center; margin-right: 30px;">
+      <label for="Sort" style="margin-right: 10px;">Sort Age</label>
+        <button id="sortAgeButton" onclick="sortUsersByAgeDescending()" style="background: none; border: none; padding: 0;">
+              <img src="images/sort.png" alt="Sort by Age" width="30" height="30">
+        </button>
+      </div>
+      <div style="display: flex; align-items: center; margin-right: 30px;">
+        <button id="clearFiltersButton" onclick="clearFilters()">Clear Filters</button>
+    </div>
+    </div>
+
+    <table>
+        <thead>
+          <tr style="color: white;">
+            <th style="width: 30%">ID User</th>
+            <th style="width: 30%">ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th style="width: 60%">Email</th>
+            <th>Password</th>
+            <th>Phone</th>
+            <th style="width: 30%">Birthday</th>
+            <th style="width: 20%">Age</th>
+            <th style="width: 25%">Gender</th>
+            <th style="width: 25%">Delete</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          <!-- users will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+
+<!-- add script for user home page-->>
+
+<!-- add script to delete users-->>
+
+<!-- add script for showing users -->>
+
+
+</body>
+</html>
