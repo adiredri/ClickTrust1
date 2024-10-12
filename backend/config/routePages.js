@@ -75,7 +75,14 @@ router.post('/addUser', async (req, res) => {
         const errorMessage = 'You must fill in what your gender is.';
         console.error(errorMessage);
         return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
-  }
+      }
+      
+      // Check if password is number
+      if (!/^\d+$/.test(req.body.Password)) {
+        let errorMessage = 'Password can only contain digits';
+        console.error(errorMessage);
+        return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
+      }
   
       // ----------------- Add after hecking and everything is ok -------------------
   
@@ -157,6 +164,14 @@ router.post('/addUser', async (req, res) => {
             console.error(errorMessage);
             return res.send(`<script>alert('${errorMessage}'); window.location.href='/edit'</script>`);
         }
+
+  // Check if password is number
+
+  if (!/^\d+$/.test(Password)) {
+    let errorMessage = 'Password can only contain digits';
+    console.error(errorMessage);
+    return res.send(`<script>alert('${errorMessage}'); window.location.href='/edit'</script>`);
+  }
   
   // Check for the existence of a phone number or system ID
   
