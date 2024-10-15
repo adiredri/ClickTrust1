@@ -394,6 +394,63 @@ router.post('/addAsset', async (req, res) => {
 
 //  ------------------------------------------ TRADES ----------------------------------------------------
 
+// ----------- Adds trade to DB ------------
+
+router.post('/addTrade', async (req, res) => {
+  const trade = new Trade({
+    TransDate: req.body.TransDate,
+    TransTime: req.body.TransTime,
+    AssetID : req.body.AssetID,
+    SellerEmail: req.body.SellerEmail,
+    BuyerEmail: req.body.BuyerEmail,
+  });
+
+  try {   
+      // Save the Trade to the database
+      await trade.save();
+      console.log('Trade added successfully'); 
+      // Send a response back to the client-side to handle the confirmation
+      res.status(200).json({ success: true }); // Sending a success response
+
+  } catch (error) {
+    console.error('An error occurred while adding the trade:', error);
+    res.status(500).json({ success: false, error: 'An error occurred while adding the trade' }); // Sending an error response
+  }
+});
+
+// --------- SHOW TRADES -----------
+
+router.get('/user-trades', async (req, res) => {
+  const userEmail = req.query.Email; // get the email from the query parameters
+  try {
+    const userTrades = await Trade.aggregate([
+      {
+        $match: {
+          $or: [
+            { BuyerEmail: userEmail },
+            { SellerEmail: userEmail }
+          ]
+        }
+      },
+      {
+        $lookup:
+          {
+            from: "assets",
+            localField: "AssetID",
+            foreignField: "_id",
+            as: "asset_info"
+          }
+      }
+    ]);
+    if (!userTrades || userTrades.length === 0) { // Check if userTrades is empty
+      throw new Error('No trades found for this user');
+    }
+    res.json(userTrades);
+  } catch (error) {
+    console.error('Error fetching user trades:', error);
+    res.status(500).json({ error: 'Failed to fetch user trades' });
+  }
+});
 
 
 
