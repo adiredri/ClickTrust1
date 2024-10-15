@@ -330,7 +330,7 @@ router.get('/signup', function (req, res) {
 router.get('/reset', function (req, res) {
     res.sendFile(path.join(__dirname, '../../views', 'ForgotPassword.html'));
   });
-
+  
 
   
 //  ------------------------------------------ ASSETS -----------------------------------------------
