@@ -89,12 +89,199 @@
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
 
-<!-- add script for user home page-->>
+<script> // home page customer / admin
 
-<!-- add script to delete users-->>
+    // Retrieve the email from session storage
+     const Email = sessionStorage.getItem('Email');
 
-<!-- add script for showing users -->>
+     console.log(Email);
 
+    // Determine the home page URL based on the user's role
+    let homePageUrl;
+    if (Email === null) { 
+      homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+    } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com') {
+      homePageUrl = '/admin?Email=' + Email;
+    } else {
+      homePageUrl = '/customer?Email=' + Email;
+    }
+  
+     // Set the href attribute of the home link
+     const homeLink = document.getElementById('home-link');
+     homeLink.setAttribute('href', homePageUrl);
+  </script>
+
+<script>
+    async function DeleteUser(event, UserID) {
+      try {
+        event.preventDefault(); // Prevent default button action (e.g., form submission)
+        if (confirm('Are you sure you want to delete the user?')) {
+          const response = await fetch(`/DeleteUser/${UserID}`, {
+            method: 'DELETE'
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to delete user.');
+          }
+          
+          alert('user deleted successfully');
+          location.reload(); // Refresh the page
+        } else {
+          alert('Delete canceled.');
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    }
+    </script>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+fetchUsers();   // Fetch users when the page loads
+
+ // ----------------------  SHOW USERS -----------------------
+
+async function fetchUsers() {
+  try {
+    const response = await fetch('/users');
+    if (!response.ok) {
+      throw new Error('Failed to fetch users');
+    }
+    const users = await response.json();
+    renderUsers(users);
+    console.log('Users:', users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
+}
+
+function renderUsers(users) {
+  const userTableBody = document.getElementById('userTableBody');
+  userTableBody.innerHTML = ''; // Clear existing rows
+  users.forEach((user) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td style="width: 30%">${user._id}</td>
+      <td style="width: 30%">${user.ID}</td>
+      <td>${user.FirstName}</td>
+      <td>${user.LastName}</td>
+      <td style="width: 60%">${user.Email}</td>
+      <td>${user.Password}</td>      
+      <td>${user.Phone}</td>
+      <td style="width: 30%">${formatDate(user.Birthday)}</td>
+      <td style="width: 20%">${CalculateAge(user.Birthday)}</td>
+      <td style="width: 25%">${user.Gender}</td>
+      <td style="width: 25%">
+      <button class="delete-button" onclick="DeleteUser(event, '${user._id}')">Delete</button>
+      </td>
+    `;
+
+    userTableBody.appendChild(row);
+  });
+}
+
+
+   // ----------------------  FILTERS & SORTS -----------------------
+
+
+   async function filterUsers() {
+    const searchByID = document.getElementById('ID');
+    const searchByFname = document.getElementById('Fname');
+    const searchByLname = document.getElementById('Lname');
+
+    const users = Array.from(document.getElementById('userTableBody').getElementsByTagName('tr'));
+
+    users.forEach((user) => {
+      const ID = user.children[1].innerText.toString();
+      const Fname = user.children[2].innerText;
+      const Lname = user.children[3].innerText;
+
+      user.style.display = '';
+
+      if (searchByID.value && !ID.includes(searchByID.value)) {
+        user.style.display = 'none';
+      }
+
+      if (searchByFname.value && !Fname.toLowerCase().includes(searchByFname.value.toLowerCase())) {
+        user.style.display = 'none';
+      }
+
+      if (searchByLname.value && !Lname.toLowerCase().includes(searchByLname.value.toLowerCase())) {
+        user.style.display = 'none';
+      }
+
+    });
+  }
+  let ascendingOrder = true;
+
+    function sortUsersByAgeDescending() {
+    const userTableBody = document.getElementById('userTableBody');
+    const users = Array.from(userTableBody.getElementsByTagName('tr'));
+
+    users.sort((a, b) => {
+        const priceA = parseFloat(a.children[8].innerText);
+        const priceB = parseFloat(b.children[8].innerText);
+        return ascendingOrder ? priceA - priceB : priceB - priceA;
+    });
+
+    userTableBody.innerHTML = '';
+    users.forEach(user => {
+    userTableBody.appendChild(user);
+    });
+
+    ascendingOrder = !ascendingOrder;
+}
+
+function clearFilters() {  // Clear the sorts
+  document.getElementById('ID').value = '';
+  document.getElementById('Fname').value = '';
+  document.getElementById('Lname').value = '';
+  filterUsers(); 
+}
+
+  // --------------------------- Event listeners ----------------------
+
+  document.getElementById('ID').addEventListener('input', filterUsers);
+  document.getElementById('Fname').addEventListener('input', filterUsers);
+  document.getElementById('Lname').addEventListener('input', filterUsers);
+  document.getElementById('sortAgeButton').addEventListener('click', sortUsersByAgeDescending);
+  document.getElementById('clearFiltersButton').addEventListener('click', clearFilters);
+
+  // -------------------------------- FORMATS ----------------------
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    // Format the date as desired (e.g., YYYY-MM-DD)
+    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+    return formattedDate;
+  }
+
+  function formatTime(timeString) {
+    // Implement time formatting if needed
+    return timeString;
+  }
+
+  function CalculateAge(birthDate) {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+
+    // If the person's birthday has not occurred yet this year
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+  // ----------------------------------------------------------------
+
+  });
+
+</script>
 
 </body>
 </html>

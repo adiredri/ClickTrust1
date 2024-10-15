@@ -91,23 +91,204 @@
 
             <!-- end left form -->
 
-      <script> /* slide bar */
-        const priceSlider = document.getElementById("price");
-        const priceValue = document.getElementById("price-value");
+            <script> /* slide bar */
+              const priceSlider = document.getElementById("price");
+              const priceValue = document.getElementById("price-value");
+              
+              priceSlider.addEventListener("input", function() {
+                  priceValue.textContent = this.value 
+              });
+              </script>
+      
+      <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+      <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+      
+      <script> // home page customer / admin
+      
+          // Retrieve the email from session storage
+           const Email = sessionStorage.getItem('Email');
+      
+           console.log(Email);
+      
+          // Determine the home page URL based on the user's role
+          let homePageUrl;
+          if (Email === null) { 
+            homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+          } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com') {
+            homePageUrl = '/admin?Email=' + Email;
+          } else {
+            homePageUrl = '/customer?Email=' + Email;
+          }
         
-        priceSlider.addEventListener("input", function() {
-            priceValue.textContent = this.value 
-        });
+           // Set the href attribute of the home link
+           const homeLink = document.getElementById('home-link');
+           homeLink.setAttribute('href', homePageUrl);
         </script>
-
-<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-<div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
-
-<!-- script for homepage -->
-
-<!-- scipt to add/delete function-->
-
-<!-- script to display functions -->
-
+      
+      <script>
+          async function DeleteAsset(event, AssetID) {
+            try {
+              event.preventDefault(); // Prevent default button action (e.g., form submission)
+              if (confirm('Are you sure you want to delete the asset?')) {
+                const response = await fetch(`/DeleteAsset/${AssetID}`, {
+                  method: 'DELETE'
+                });
+                
+                if (!response.ok) {
+                  throw new Error('Failed to delete asset.');
+                }
+                
+                alert('Asset deleted successfully');
+                location.reload(); // Refresh the page
+              } else {
+                alert('Delete canceled.');
+              }
+            } catch (error) {
+              console.error('Error deleting asset:', error);
+            }
+          }
+          </script>
+      
+      
+      <script>
+      
+      document.addEventListener("DOMContentLoaded", function () {
+      
+      fetchAssets();   // Fetch assets when the page loads
+      
+       // ----------------------  SHOW ASSETS -----------------------
+      
+      async function fetchAssets() {
+        try {
+          const response = await fetch('/assets/available');
+          if (!response.ok) {
+            throw new Error('Failed to fetch assets');
+          }
+          const assets = await response.json();
+          renderAssets(assets);
+          console.log('Assets:', assets);
+        } catch (error) {
+          console.error('Error fetching assets:', error);
+        }
+      }
+      
+      function renderAssets(assets) {
+        const assetTableBody = document.getElementById('assetTableBody');
+        assetTableBody.innerHTML = ''; // Clear existing rows
+        assets.forEach((asset) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td style="width: 30%">${asset._id}</td>
+            <td>${asset.Category}</td>
+            <td>${asset.NameDigitalAsset}</td>
+            <td>${asset.Place}</td>
+            <td style="width: 30%">${formatDate(asset.Date)}</td>
+            <td style="width: 25%">${formatTime(asset.Time)}</td>
+            <td style="width: 30%">${asset.Quantity}</td>
+            <td style="width: 30%">${asset.Price}</td>
+            <td style="width: 60%">${asset.Email}</td>
+            <td style="width: 25%">
+            <button class="delete-button" onclick="DeleteAsset(event, '${asset._id}')">Delete</button>
+            </td>
+          `;
+      
+          assetTableBody.appendChild(row);
+        });
+      }
+      
+      
+         // ----------------------  FILTERS & SORTS -----------------------
+      
+      
+         async function filterAssets() {
+          const searchByDate = document.getElementById('DateTrans');
+          const searchByName = document.getElementById('Name');
+          const searchByCategory = document.getElementById('Category');
+          const maxPrice = document.getElementById('price');
+      
+          const assets = Array.from(document.getElementById('assetTableBody').getElementsByTagName('tr'));
+      
+          assets.forEach((asset) => {
+            const DateTrans = asset.children[4].innerText;
+            const AssetName = asset.children[8].innerText;
+            const Category = asset.children[1].innerText;
+            const price = parseFloat(asset.children[7].innerText);
+      
+            asset.style.display = '';
+      
+            if (searchByDate.value && !DateTrans.toLowerCase().includes(searchByDate.value.toLowerCase())) {
+              asset.style.display = 'none';
+            }
+      
+            if (searchByName.value && !AssetName.toLowerCase().includes(searchByName.value.toLowerCase())) {
+              asset.style.display = 'none';
+            }
+      
+            if (searchByCategory.value && !Category.toLowerCase().includes(searchByCategory.value.toLowerCase())) {
+              asset.style.display = 'none';
+            }
+      
+            if (maxPrice.value && price > parseFloat(maxPrice.value)) {
+              asset.style.display = 'none';
+            }
+          });
+        }
+        let ascendingOrder = true;
+      
+          function sortAssetsByPriceDescending() {
+          const assetTableBody = document.getElementById('assetTableBody');
+          const assets = Array.from(assetTableBody.getElementsByTagName('tr'));
+      
+          assets.sort((a, b) => {
+              const priceA = parseFloat(a.children[7].innerText);
+              const priceB = parseFloat(b.children[7].innerText);
+              return ascendingOrder ? priceA - priceB : priceB - priceA;
+          });
+      
+          assetTableBody.innerHTML = '';
+          assets.forEach(asset => {
+          assetTableBody.appendChild(asset);
+          });
+      
+          ascendingOrder = !ascendingOrder;
+      }
+      
+      function clearFilters() {  // Clear the sorts
+        document.getElementById('DateTrans').value = '';
+        document.getElementById('Name').value = '';
+        document.getElementById('Category').value = '';
+        document.getElementById('price').value = '';
+        filterAssets(); 
+      }
+      
+        // --------------------------- Event listeners ----------------------
+      
+        document.getElementById('DateTrans').addEventListener('input', filterAssets);
+        document.getElementById('Name').addEventListener('input', filterAssets);
+        document.getElementById('Category').addEventListener('input', filterAssets);
+        document.getElementById('price').addEventListener('input', filterAssets);
+        document.getElementById('sortPriceButton').addEventListener('click', sortAssetsByPriceDescending);
+        document.getElementById('clearFiltersButton').addEventListener('click', clearFilters);
+      
+        // -------------------------------- FORMATS ----------------------
+      
+        function formatDate(dateString) {
+          const date = new Date(dateString);
+          // Format the date as desired (e.g., YYYY-MM-DD)
+          const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+          return formattedDate;
+        }
+      
+        function formatTime(timeString) {
+          // Implement time formatting if needed
+          return timeString;
+        }
+      
+        // ----------------------------------------------------------------
+      
+        });
+      
+      </script>
+      
 </body>
 </html>

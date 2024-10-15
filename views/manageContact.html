@@ -77,11 +77,152 @@
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
 
-<!-- script for collecting and displaying user data -->
+<script> // home page customer / admin
 
-<!-- script for deleting contact-->
+    // Retrieve the email from session storage
+     const Email = sessionStorage.getItem('Email');
 
-<!-- script for showing contact-->
+     console.log(Email);
+
+    // Determine the home page URL based on the contact's role
+    let homePageUrl;
+    if (Email === null) { 
+      homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+    } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com') {
+      homePageUrl = '/admin?Email=' + Email;
+    } else {
+      homePageUrl = '/customer?Email=' + Email;
+    }
+  
+     // Set the href attribute of the home link
+     const homeLink = document.getElementById('home-link');
+     homeLink.setAttribute('href', homePageUrl);
+  </script>
+
+
+
+<script>
+    async function DeleteContcat(event, ContactID) {
+      try {
+        event.preventDefault(); // Prevent default button action (e.g., form submission)
+        if (confirm('Are you sure you want to delete this massege?')) {
+          const response = await fetch(`/DeleteContact/${ContactID}`, {
+            method: 'DELETE'
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to delete contact.');
+          }
+          
+          alert('contact deleted successfully');
+          location.reload(); // Refresh the page
+        } else {
+          alert('Delete canceled.');
+        }
+      } catch (error) {
+        console.error('Error deleting contact:', error);
+        console.log(error);
+      }
+    }
+</script>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    fetchContacts();   // Fetch contacts when the page loads
+
+ // ----------------------  SHOW CONTACTS -----------------------
+
+async function fetchContacts() {
+  try {
+    const response = await fetch('/contacts');
+    if (!response.ok) {
+      throw new Error('Failed to fetch contacts');
+    }
+    const contacts = await response.json();
+    renderContacts(contacts);
+    console.log('Contacts:', contacts);
+  } catch (error) {
+    console.error('Error fetching contacts:', error);
+  }
+}
+
+function renderContacts(contacts) {
+  const contactTableBody = document.getElementById('contactTableBody');
+  contactTableBody.innerHTML = ''; // Clear existing rows
+  contacts.forEach((contact) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td style="width: 30%">${contact._id}</td>
+      <td style="width: 40%">${contact.Name}</td>
+      <td style="width: 50%">${contact.Email}</td>     
+      <td style="width: 30%">${contact.Phone}</td>
+      <td style="width: 200%">${contact.Massege}</td>
+      <td style="width: 25%">
+      <button class="delete-button" onclick="DeleteContcat(event, '${contact._id}')">Delete</button>
+      </td>
+    `;
+
+    contactTableBody.appendChild(row);
+  });
+}
+
+
+   // ----------------------  FILTERS & SORTS -----------------------
+
+
+   async function filterContacts() {
+    const searchByName = document.getElementById('Name');
+    const searchByEmail = document.getElementById('Email');
+    const searchByPhone = document.getElementById('Phone');
+
+    const contacts = Array.from(document.getElementById('contactTableBody').getElementsByTagName('tr'));
+
+    contacts.forEach((contact) => {
+      const Name = contact.children[1].innerText;
+      const Email = contact.children[2].innerText;
+      const Phone = contact.children[3].innerText.toString();
+
+      contact.style.display = '';
+
+      if (searchByName.value && !Name.toLowerCase().includes(searchByName.value.toLowerCase())) {
+        contact.style.display = 'none';
+      }
+
+      if (searchByEmail.value && !Email.toLowerCase().includes(searchByEmail.value.toLowerCase())) {
+        contact.style.display = 'none';
+      }
+
+      if (searchByPhone.value && !Phone.includes(searchByPhone.value)) {
+        contact.style.display = 'none';
+      }
+
+    });
+  }
+
+    let ascendingOrder = true;
+
+function clearFilters() {  // Clear the sorts
+  document.getElementById('Name').value = '';
+  document.getElementById('Email').value = '';
+  document.getElementById('Phone').value = '';
+  filterContacts(); 
+}
+
+  // --------------------------- Event listeners ----------------------
+
+  document.getElementById('Name').addEventListener('input', filterContacts);
+  document.getElementById('Email').addEventListener('input', filterContacts);
+  document.getElementById('Phone').addEventListener('input', filterContacts);
+  document.getElementById('clearFiltersButton').addEventListener('click', clearFilters);
+
+  // ----------------------------------------------------------------
+
+  });
+
+</script>
 
 </body>
 </html>
