@@ -75,7 +75,15 @@ router.post('/addUser', async (req, res) => {
       const errorMessage = 'You must fill in what your gender is.';
       console.error(errorMessage);
       return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
-}
+
+    }
+     // Check if password is number
+
+    if (!/^\d+$/.test(req.body.Password)) {
+      let errorMessage = 'Password can only contain digits';
+      console.error(errorMessage);
+      return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
+    }
 
     // ----------------- Add after hecking and everything is ok -------------------
 
@@ -134,6 +142,14 @@ router.post('/update-user', async (req, res) => {
   const { ID, FirstName, LastName, Email, Password, Phone, Birthday, gender } = req.body;
 
   try {
+
+    // Check if password is number
+
+    if (!/^\d+$/.test(Password)) {
+      let errorMessage = 'Password can only contain digits';
+      console.error(errorMessage);
+      return res.send(`<script>alert('${errorMessage}'); window.location.href='/edit'</script>`);
+   }
 
   // Check for age over 18   
 
@@ -246,7 +262,12 @@ router.post('/reset-password', async (req, res) => {
     console.error(errorMessage);
     res.send(`<script>alert('${errorMessage}'); window.location.href='/reset'</script>`);
     }
-    else
+    else if (!/^\d+$/.test(req.body.newPassword)) {
+      const errorMessage = 'Password can only contain digits';
+      console.error(errorMessage);
+      res.send(`<script>alert('${errorMessage}'); window.location.href='/reset'</script>`);
+    }
+     else
     {
     // update password
     await User.updateOne({ ID: ID, Email: Email }, { Password: newPassword });
@@ -257,6 +278,7 @@ router.post('/reset-password', async (req, res) => {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
+
 });
 
 //  ------------------------------------------ ASSETS -----------------------------------------------
