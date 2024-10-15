@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManageAssets</title>
+    <link rel="stylesheet" href="styles/manage.css">
+</head>
+<body>
+
+    <!-- start video, navbar, logo, widget -->
+
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="images\Digital.mp4" type="video/mp4">
+        </video>
+    </div>
+    <nav>
+        <div class="nav-bar">
+        <a href="manageContact.html">Customer Service</a>
+        <a href="manageUsers.html">Manage Users</a>
+        <a href="AddProduct.html">Add Asset</a>
+        <a href="History.html">History</a>
+        <a href="SignUp.html">Log Out</a>
+        </div>
+    </nav>
+    <div class="logo">
+        <img src="images/WhiteLogo.png" alt="My Logo" class="logo">
+    </div>
+    <div id="widget">
+        <a id="home-link" href="#"> 
+            <img src="images/homepage.png" alt="Image" id="widget-image"></a>
+    </div>
+
+        <!-- end video, navbar, logo, widget -->
+
+<div class="text-box">
+    <div class="container">
+    <h1>Manage Assets</h1>
+    <div class="search-container">
+      <div>
+        <label for="DateTrans">Search by Date:</label>
+        <input type="date" id="DateTrans" style="width: 180px;" oninput="filterAssets()">
+      </div>
+      <div>
+        <label for="Name">Search by Email Seller</label>
+        <input type="text" id="Name" style="width: 220px;" oninput="filterAssets()">
+      </div>
+      <div>
+        <label for="Category">Search by Category</label>
+        <input type="text" id="Category" style="width: 220px;" oninput="filterAssets()">
+      </div>
+      <div class="price-slider">
+        <label for="price">Max Price: <output for="price" id="price-value">250</output></label><br>
+        <input type="range" id="price" name="price" min="0" max="5000" value="1000" style="width: 180px;" onclick="filterAssets()">
+    </div>
+    <div style="display: flex; align-items: center; margin-right: 30px;">
+      <label for="Sort" style="margin-right: 10px;">Sort Price</label>
+        <button id="sortPriceButton" onclick="sortAssetsByPriceDescending()" style="background: none; border: none; padding: 0;">
+              <img src="images/sort.png" alt="Sort by Price" width="30" height="30">
+        </button>
+      </div>
+      <div style="display: flex; align-items: center; margin-right: 30px;">
+        <button id="clearFiltersButton" onclick="clearFilters()">Clear Filters</button>
+    </div>
+    </div>
+
+    <table>
+        <thead>
+          <tr style="color: white;">
+            <th style="width: 30%">ID Asset</th>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Place</th>
+            <th style="width: 30%">Date</th>
+            <th style="width: 25%">Time</th>
+            <th style="width: 30%">Quantity</th>
+            <th style="width: 30%">Price($)</th>
+            <th style="width: 60%">Email Seller</th>
+            <th style="width: 25%">Delete</th>
+
+          </tr>
+        </thead>
+        <tbody id="assetTableBody">
+          <!-- Assets will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+</div>
+
+            <!-- end left form -->
+
+      <script> /* slide bar */
+        const priceSlider = document.getElementById("price");
+        const priceValue = document.getElementById("price-value");
+        
+        priceSlider.addEventListener("input", function() {
+            priceValue.textContent = this.value 
+        });
+        </script>
+
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+
+<!-- script for homepage -->
+
+<!-- scipt to add/delete function-->
+
+<!-- script to display functions -->
+
+</body>
+</html>

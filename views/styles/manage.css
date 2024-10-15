@@ -193,3 +193,214 @@ nav {
     margin-top: -40px; 
     color: rgb(0, 0, 0); 
   }
+
+  .search-container {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-top: -20px;
+  }
+
+  .search-container input {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+    font-weight: 600;
+    height: 25px;
+    width: 50%;
+    padding-top: 4px;
+    margin-bottom: 2px;
+    margin-top: 5px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(120px);
+    -webkit-backdrop-filter: blur(120px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    animation-duration: 2s;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  input:hover {
+    transform: scale(1.1);
+  }
+
+  input:focus {
+    transform: scale(1.1);
+  }
+
+  .search-container input::-webkit-inner-spin-button,
+  .search-container input::-webkit-outer-spin-button { /*disable the arrows on the input bar that have numbers*/
+    -webkit-appearance: none;
+    margin: 0;
+    display: none;
+  }
+
+  input::placeholder { /* text inside input box edit*/
+    text-align: center;
+    color: white;
+    font-size: 22px;
+  }
+ 
+
+  @media (max-width: 900px) { /* responsivnes */
+    .search-container {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-items: stretch;
+      width: 280px;
+      margin: 0 auto;
+    }
+
+    .search-container input { /*  inputs css for inputs in cointainer*/
+      margin: 5px 0;
+    }
+  }
+
+.price-slider {
+  width: 50%;
+  margin: 5px auto;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 3px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #24244e;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+
+#clearFiltersButton {
+  background-color: #f44336; 
+  color: white;
+  padding: 8px; 
+  text-align: center; 
+  display: inline-block;
+  border: none; 
+  border-radius: 20px; 
+  cursor: pointer; 
+  transition: background-color 0.3s;
+  font-size: 14px; 
+}
+
+#clearFiltersButton:hover {
+  background-color: #d32f2f;
+}
+
+.delete-button {
+  background-color: #d32f2f; 
+  color: white;
+  border: none; 
+  padding: 3px 10px; 
+  border-radius: 20px; 
+  cursor: pointer; 
+  font-size: 16px; 
+  transition-duration: 0.4s;
+  text-align: center; 
+}
+
+.delete-button:hover {
+  background-color: #d32f2f; 
+}
+
+ /*------------------------------- table ----------------------------*/
+ table {
+  border-collapse: collapse;
+  width: 95%; 
+  height: 70%; 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  margin: auto;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  vertical-align: middle;
+  width: 50%;
+  
+}
+
+th {
+  font-size: 18px; 
+  padding: 4px; 
+}
+
+td {
+  font-size: 12px;
+  padding: 6px; 
+}
+
+th:first-child, td:first-child {
+  border-left: 1px solid rgba(0, 0, 0, 0.1); 
+}
+
+tbody tr:nth-child(even) {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.532), rgba(255, 255, 255, 0.3)); 
+}
+
+tbody tr:nth-child(odd) {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.532), rgba(255, 255, 255, 0.3)); 
+}
+
+tr {
+  font-size: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+
+.text-box td {
+  padding: 5px; 
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.text-box tbody {
+  display: block;
+  overflow-y: auto;
+  height: 100%; 
+  max-height: 100%; 
+}
+
+.text-box tbody tr:nth-child(even) {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.5));
+}
+
+.text-box tbody tr:nth-child(odd) {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.192), rgba(255, 255, 255, 0.3));
+}
+
+.text-box tr {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
