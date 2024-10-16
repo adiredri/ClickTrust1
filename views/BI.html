@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Intelligence Dashboard</title>
+    <link rel="stylesheet" href="styles/BI.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Video background, navbar, logo, and widget -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="images/global2.mp4" type="video/mp4">
+        </video>
+    </div>
+    <nav>
+        <div class="nav-bar">
+            <a href="manageContact.html">Customer Service</a>
+            <a href="manageAssest.html">Manage Assets</a>
+            <a href="AddProduct.html">Add Asset</a>
+            <a href="History.html">History</a>
+            <a href="SignUp.html">Log Out</a>
+        </div>
+    </nav>
+    <div class="logo">
+        <img src="images/WhiteLogo.png" alt="My Logo" class="logo">
+    </div>
+    <div id="widget">
+        <a id="home-link" href="#">
+            <img src="images/homepage.png" alt="Image" id="widget-image">
+        </a>
+    </div>
+
+    <!-- Centered text -->
+    <div class="centered-text">
+        <h1>Business Intelligence Dashboard</h1>
+    </div>
+
+    <!-- Users Section -->
+    <div class="usersSection">
+        <h2 style="margin-bottom: 1rem;">Total Registered Users: <span id="totalUsersCount"></span></h2>
+        <div class="pie-users">
+        <div class="chart-box">
+            <h2>Users Gender Distribution</h2>
+            <canvas style="max-height: 320px; width: 100px;" id="userGenderChart"></canvas>
+        </div>
+        <div class="chart-box">
+            <h2>Users Age Distribution</h2>
+            <canvas style="max-height: 320px; width: 100px;" id="userAgeChart"></canvas>
+        </div>
+     </div>
+    </div>
+
+    <!-- Assets Section -->
+    <div class="assetsSection">
+        <h2 style="margin-bottom: 1rem;">Total Assets: <span id="totalAssets"></span></h2>
+        <div class="pie-users">
+        <div class="chart-box">
+            <h2>Asset Distribution by Category</h2>
+            <canvas style="max-height: 320px; color: white;" id="assetsDistributionChart"></canvas>
+        </div>
+        </div>
+    </div>
+
+    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <div class="elfsight-app-9499548e-2fe2-4f40-910f-3ad318347df0" data-elfsight-app-lazy></div>
+    
+    <script>
+        // Retrieve the email from session storage
+        const Email = sessionStorage.getItem('Email');
+      
+      console.log(Email);
+ 
+     // Determine the home page URL based on the user's role
+     let homePageUrl;
+     if (Email === null) { 
+       homePageUrl = '/index'; // Set home page URL to '/index' when email is null
+     } else if (Email === 'afik101297@gmail.com' || Email === 'adire7399@gmail.com' || Email === 'Nogga.ovadya@gmail.com' || Email === 'y.itzkovitch@gmail.com') {
+       homePageUrl = '/admin?Email=' + Email;
+     } else {
+       homePageUrl = '/customer?Email=' + Email;
+     }
+   
+      // Set the href attribute of the home link
+      const homeLink = document.getElementById('home-link');
+      homeLink.setAttribute('href', homePageUrl);
+
+        // Fetch data from the backend
+        async function fetchData() {
+            try {
+                const userResponse = await fetch('/users');
+                const usersData = await userResponse.json();
+
+                const assetsResponse = await fetch('/assets');
+                const assetsData = await assetsResponse.json();
+
+                // Update charts with fetched data
+                updateCharts(usersData, assetsData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        function updateCharts(usersData, assetsData) {
+            // Total registered users
+            document.getElementById('totalUsersCount').innerText = usersData.length;
+
+            // Total assets
+            document.getElementById('totalAssets').innerText = assetsData.length;
+
+            // Gender distribution
+            const genderCounts = usersData.reduce((acc, user) => {
+                acc[user.Gender] = (acc[user.Gender] || 0) + 1;
+                return acc;
+            }, {});
+
+            const genderChartData = {
+                labels: Object.keys(genderCounts),
+                datasets: [{
+                    label: 'User Gender Distribution',
+                    data: Object.values(genderCounts),
+                    backgroundColor: ['#4BC0C0', '#FF6384', '#000000'],
+                    borderColor: '#fff',
+                    borderWidth: 0.5
+                }]
+            };
+
+            const ctxGender = document.getElementById('userGenderChart').getContext('2d');
+            new Chart(ctxGender, {
+                type: 'pie',
+                data: genderChartData,
+                options: {
+                    responsive: true,
+                    color: '#FFFFFF',
+                    maintainAspectRatio: false,
+                }
+            });
+
+            // Age distribution
+            const ageDistribution = {
+                '18-30': 0,
+                '31-45': 0,
+                '46-60': 0,
+                '60+': 0
+            };
+
+            usersData.forEach(user => {
+                const age = new Date().getFullYear() - new Date(user.Birthday).getFullYear();
+                if (age <= 30) ageDistribution['18-30']++;
+                else if (age <= 45) ageDistribution['31-45']++;
+                else if (age <= 60) ageDistribution['46-60']++;
+                else ageDistribution['60+']++;
+            });
+
+            const ageChartData = {
+                labels: Object.keys(ageDistribution),
+                datasets: [{
+                    label: 'User Age Distribution',
+                    data: Object.values(ageDistribution),
+                    backgroundColor: ['#FFCE56', '#36A2EB', '#FF9F40', '#4BC0C0'],
+                    borderColor: '#fff',
+                    borderWidth: 0.5
+                }]
+            };
+
+            const ctxAge = document.getElementById('userAgeChart').getContext('2d');
+            new Chart(ctxAge, {
+                type: 'pie',
+                data: ageChartData,
+                options: {
+                    responsive: true,
+                    color: '#FFFFFF',
+                    maintainAspectRatio: false,
+                }
+            });
+
+
+             // Asset distribution by category (changed to bar chart)
+            const assetCategories = {};
+            assetsData.forEach(asset => {
+                assetCategories[asset.Category] = (assetCategories[asset.Category] || 0) + 1;
+            });
+
+            const assetChartData = {
+                labels: Object.keys(assetCategories),
+                datasets: [{
+                    data: Object.values(assetCategories),
+                    backgroundColor: ['#DFFF00', '#FFBF00', '#FF7F50', '#DE3163','#9FE2BF', '#40E0D0', '#6495ED', '#CCCCFF'],
+                    borderColor: '#fff',
+                    borderWidth: 0.5
+                }]
+            };
+
+            const ctxAssets = document.getElementById('assetsDistributionChart').getContext('2d');
+            new Chart(ctxAssets, {
+                type: 'bar', 
+                data: assetChartData,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                
+                    },
+                    responsive: true,
+                    color: '#FFFFFF',
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+                            grid: {
+                              color: '#FFFFFF'
+                            }
+                        }, 
+
+                        x: {
+                            ticks: {
+                                color: '#FFFFFF'
+                            },
+
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                    
+                }
+            });
+        }
+
+        // Call fetchData to load the data
+        document.addEventListener("DOMContentLoaded", fetchData);
+    </script>
+</body>
+</html>

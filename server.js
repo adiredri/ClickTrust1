@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 require('./tweet.js');
+const cron = require('node-cron');
+const Asset = require('./backend/models/asset');
 
 const app = express();
 
@@ -19,8 +21,8 @@ mongoose.connect('mongodb+srv://ClickTrust:1111@clicktrust.4k9ne3a.mongodb.net/C
     });
 //_______________________________________________________________________________________________
 
-
 // Parse JSON data
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./views'));
@@ -38,4 +40,20 @@ app.use('/', pages);
 const port = 3300;
 app.listen(port, function () {
     console.log("Server started on port", port);
+});
+
+//_______________________________________________________________________________________________
+
+// Schedule task to delete expired assets
+
+cron.schedule('00 00 * * *', async () => {
+    console.log('Running task to delete expired assets...');
+    const today = new Date(); 
+    
+    try {
+        const result = await Asset.deleteMany({ Date: { $lt: today } });
+        console.log(`Deleted ${result.deletedCount} expired assets.`);
+    } catch (error) {
+        console.error('Error deleting expired assets:', error);
+    }
 });
