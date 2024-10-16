@@ -18,44 +18,26 @@ router.post('/addUser', async (req, res) => {
     // ----------------- Checks -------------------
 
     // Check that the identity card contains exactly 9 digits
-
     if (!/^\d{9}$/.test(req.body.ID)) {
-      const errorMessage = 'ID must contain exactly 9 digits.';
-       console.error(errorMessage);
-       return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
+      return res.status(400).json({ error: 'ID must contain exactly 9 digits.' });
     }
 
     // Check if the ID already exists in the database
-
     const existingID = await User.findOne({ ID: req.body.ID });
     if (existingID) {
-      // If the ID already exists, display an error message
-      const errorMessage = 'ID already exists. Please choose a different ID.';
-      console.error(errorMessage);
-      // Display an alert with the error message
-      return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
+      return res.status(400).json({ error: 'ID already exists. Please choose a different ID.' });
     }
 
     // Check if the email already exists in the database
-
     const existingEmail = await User.findOne({ Email: req.body.Email });
     if (existingEmail) {
-      // If the email already exists, display an error message
-      const errorMessage = 'Email already exists. Please choose a different email.';
-      console.error(errorMessage);
-      // Display an alert with the error message
-      return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
+      return res.status(400).json({ error: 'Email already exists. Please choose a different email.' });
     }
 
     // Check if the phone number already exists in the database
-
     const existingPhone = await User.findOne({ Phone: req.body.Phone });
     if (existingPhone) {
-      // If the phone number already exists, display an error message
-      const errorMessage = 'Phone number already exists. Please choose a different phone number.';
-      console.error(errorMessage);
-      // Display an alert with the error message
-      return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
+      return res.status(400).json({ error: 'Phone number already exists. Please choose a different phone number.' });
     }
 
     // Check that the user is over 18 years old
@@ -65,28 +47,20 @@ router.post('/addUser', async (req, res) => {
     const userBirthYear = birthday.getFullYear();
 
     if (userBirthYear > minBirthYear) {
-      const errorMessage = 'You must be at least 18 years old to register.';
-      console.error(errorMessage);
-      return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
+      return res.status(400).json({ error: 'You must be at least 18 years old to register.' });
     }
 
     // Check if the gender field is provided
     if (!req.body.Gender) {
-      const errorMessage = 'You must fill in what your gender is.';
-      console.error(errorMessage);
-      return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
-
+      return res.status(400).json({ error: 'You must fill in what your gender is.' });
     }
-     // Check if password is number
 
+    // Check if password is a number
     if (!/^\d+$/.test(req.body.Password)) {
-      let errorMessage = 'Password can only contain digits';
-      console.error(errorMessage);
-      return res.send(`<script>alert('${errorMessage}'); window.location.href='/signup'</script>`);
+      return res.status(400).json({ error: 'Password can only contain digits.' });
     }
 
-    // ----------------- Add after hecking and everything is ok -------------------
-
+    // ----------------- Add after checking everything is ok -------------------
 
     // Save the user to the database 
     const user = new User({
@@ -99,14 +73,17 @@ router.post('/addUser', async (req, res) => {
       Birthday: req.body.Birthday,
       Gender: req.body.Gender,
     });
+
     await user.save();
     console.log('User added successfully');
-    res.redirect('/Welcome');
+    res.status(200).json({ message: 'User registered successfully' });
+
   } catch (error) {
     console.error('Error adding user:', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // ------------- get all users --------------
 
@@ -205,29 +182,20 @@ router.delete('/DeleteUser/:UserID', async (req, res) => {
   try {
     const userIdToDelete = req.params.UserID;
     const currentUserId = req.body.currentUserId; 
-
-    // שליפת המשתמש לפי UserID כדי לקבל את כתובת האימייל שלו
     const userToDelete = await User.findById(userIdToDelete);
 
     if (!userToDelete) {
       return res.status(404).send('User not found');
     }
-
-    // בדיקה אם המשתמש שנמחק הוא מנהל
     if (adminUserIDs.includes(userIdToDelete)) {
       return res.status(403).send('You cannot delete another admin.');
     }
-
-    // בדיקה אם המנהל מנסה למחוק את עצמו
     if (userIdToDelete === currentUserId) {
       return res.status(403).send('You cannot delete yourself from this page. Please delete your account from your profile page.');
     }
-
-    // מחיקת המשתמש עצמו
     await User.findByIdAndDelete(userIdToDelete);
     console.log('User deleted successfully');
 
-    // מחיקת כל הנכסים הפעילים (Available: true) של המשתמש לפי כתובת האימייל
     const deletedAssets = await Asset.deleteMany({ Email: userToDelete.Email, Available: true });
     console.log(`Deleted ${deletedAssets.deletedCount} active assets for user ${userToDelete.Email}`);
 

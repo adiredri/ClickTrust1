@@ -25,6 +25,7 @@ nav {
     -webkit-backdrop-filter: blur(40px);
     border-bottom: solid 2px white;
     padding-bottom: 5px;
+    z-index: 1000; 
 }
 
 .nav-bar {
@@ -111,7 +112,7 @@ nav {
     top: 0;
     left: 0;
     overflow: hidden;
-    z-index: -100;
+    z-index: -1;
 }
 
 .video-background video {

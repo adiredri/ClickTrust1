@@ -18,11 +18,10 @@
     </div>
     <nav>
         <div class="nav-bar">
-        <a href="manageContact.html">Customer Service</a>
-        <a href="manageAssest.html">Manage Assets</a>
-        <a href="AddProduct.html">Add Asset</a>
-        <a href="History.html">History</a>
-        <a href="SignUp.html">Log Out</a>
+          <a href="manageContact.html">Customer Service</a>
+          <a href="manageAssest.html">Manage Assets</a>
+          <a href="BI.html">BI</a>
+          <a href="SignUp.html">Log Out</a>
         </div>
     </nav>
     <div class="logo">
@@ -124,7 +123,7 @@ async function DeleteUser(event, UserID) {
                 }
             });
             const message = await response.text(); 
-            
+
             if (response.status === 403 || response.status === 404) {
                 alert(message); 
             } else if (response.status === 200) {

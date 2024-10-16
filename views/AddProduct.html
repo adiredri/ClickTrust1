@@ -84,8 +84,20 @@
                 </div><br><br>
                 <input type="hidden" name="Email" id="Email" required>
                 <input type="hidden" name="Available" id="Available" value="true" required>
-                <input type="submit" value="Add Asset" id="add-button" onclick="addAsset(event)">
-            </form>
+                <div style="align-items: center;">
+                  <input type="submit" value="Add Asset" id="add-button" onclick="addAsset(event)">
+                  <div class="tooltip">
+                      <img src="images/questionMark.png" alt="Validation Info" id="question-mark">
+                      <span class="tooltiptext">
+                          <ul>
+                              <li>Asset Name: Must not be empty.</li>
+                              <li>Place: Must not be empty.</li>
+                              <li>Price: Must not exceed 5000.</li>
+                              <li>Date: Cannot be in the past.</li>
+                          </ul>
+                      </span>
+                  </div>
+              </div>            </form>
             <div class="conformation" style="display: none;">
                 <p>Asset Added Successfully<br></p>
             </div>
@@ -152,26 +164,11 @@
              homeLink.setAttribute('href', homePageUrl);
 </script>
 
-
 <script>
 
 async function addAsset(event) {
-  try {
-    event.preventDefault(); // Prevent default button action (e.g., form submission)
+  event.preventDefault();
 
-    if (confirm('Are you sure you want to Add?')) {
-      await createAsset(); // Create asset
-    } else {
-      // User canceled the action
-      alert('Add Asset canceled.');
-    }
-  } catch (error) {
-    console.error('Error adding asset:', error);
-  }
-}
-
-
-async function createAsset() {
   try {
     const formData = new FormData(document.getElementById('assetForm'));
     const price = formData.get('Price');
@@ -181,25 +178,13 @@ async function createAsset() {
     const datetimeString = `${date}T${time}`;
     const selectedDate = new Date(datetimeString);
 
-    if (date.trim() === '') {
-      alert('Please enter a valid date.');
-      return;
-    }
-
-    if (time.trim() === '') {
-      alert('Please enter a valid time.');
-      return;
-    }
-
     if (parseInt(price) > 5000) {
       alert('Price cannot be greater than 5000.');
-      location.reload(); 
       return;
     }
 
     if (selectedDate < currentDate) {
       alert('Date cannot be in the past.');
-      location.reload(); 
       return;
     }
 
@@ -209,7 +194,6 @@ async function createAsset() {
     });
 
     data['Email'] = sessionStorage.getItem('Email');
-    
     const response = await fetch('/addAsset', {
       method: 'POST',
       headers: {
@@ -219,20 +203,18 @@ async function createAsset() {
     });
 
     if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(`Failed to create asset: ${errorMessage}`);
+      const errorMessage = await response.json();
+      throw new Error(errorMessage.error || 'Failed to create asset.');
     }
 
-    console.log('Asset created successfully');
     alert('Asset created successfully');
-    location.reload(); 
+    location.reload();
 
   } catch (error) {
     console.error('Error creating asset:', error);
+    alert(`Error: ${error.message}`);
   }
 }
 
-
 </script>
-  
 </html>

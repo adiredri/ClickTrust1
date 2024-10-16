@@ -36,7 +36,21 @@
                 <input type="radio" id="female" name="Gender" value="female"> <label for="female">Female</label>
                 <input type="radio" id="other" name="Gender" value="other"><label for="other">Other</label>
             </div><br>
-            <input type="submit" value="Sign Up" id="signup-button" onclick="displayRadioValue()">
+            <div style=" align-items: center; margin-left: 15px;">
+                <input type="submit" value="Sign Up" id="signup-button" onclick="displayRadioValue()">
+                <div class="tooltip">
+                    <img src="images/questionMark.png" alt="Validation Info" id="question-mark">
+                    <span class="tooltiptext">
+                        <ul>
+                            <li>ID: Must contain exactly 9 digits.</li>
+                            <li>Password: Must contain only digits.</li>
+                            <li>Email: Must be valid.</li>
+                            <li>Phone: Must be unique.</li>
+                            <li>You must be 18+ to register.</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         </form><br>
         <p>Already have an account?<a href="LogIn.html" style="display: flex;">log in here</a></p>
      <p style="font-size: 12px;">By continuing with an account you agree to our <a href="TermsOfUse.html">Terms of Use</a> and acknowledge that you have read our <a href="PrivacyPolicy.html">Privacy Policy</a></p>
@@ -74,5 +88,51 @@
     }
 </script>
 
+<script>
+document.querySelector('form').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+
+    const id = document.querySelector('input[name="ID"]').value;
+    const firstName = document.querySelector('input[name="FirstName"]').value;
+    const lastName = document.querySelector('input[name="LastName"]').value;
+    const email = document.querySelector('input[name="Email"]').value;
+    const password = document.querySelector('input[name="Password"]').value;
+    const phone = document.querySelector('input[name="Phone"]').value;
+    const birthday = document.querySelector('input[name="Birthday"]').value;
+    const gender = document.querySelector('input[name="Gender"]:checked');
+
+    try {
+        const response = await fetch('/addUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ID: id,
+                FirstName: firstName,
+                LastName: lastName,
+                Email: email,
+                Password: password,
+                Phone: phone,
+                Birthday: birthday,
+                Gender: gender ? gender.value : '',
+            })
+        });
+
+        const result = await response.json();
+        
+        if (!response.ok) {
+            alert(result.error || 'Error occurred');
+        } else {
+            alert('User registered successfully!');
+            window.location.href = '/welcome';
+        }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('Error submitting form');
+    }
+});
+
+</script>
 
 </html>

@@ -18,11 +18,10 @@
     </div>
     <nav>
         <div class="nav-bar">
-        <a href="manageContact.html">Customer Service</a>
-        <a href="manageUsers.html">Manage Users</a>
-        <a href="AddProduct.html">Add Asset</a>
-        <a href="History.html">History</a>
-        <a href="SignUp.html">Log Out</a>
+          <a href="manageContact.html">Customer Service</a>
+          <a href="manageUsers.html">Manage Users</a>
+          <a href="BI.html">BI</a>
+          <a href="SignUp.html">Log Out</a>
         </div>
     </nav>
     <div class="logo">
@@ -48,8 +47,8 @@
         <input type="text" id="Name" style="width: 220px;" oninput="filterAssets()">
       </div>
       <div>
-        <label for="Category">Search by Category</label>
-        <input type="text" id="Category" style="width: 220px;" oninput="filterAssets()">
+        <label for="NameDigitalAsset">Search by Asset Name</label>
+        <input type="text" id="NameDigitalAsset" style="width: 220px;" oninput="filterAssets()">
       </div>
       <div class="price-slider">
         <label for="price">Max Price: <output for="price" id="price-value">250</output></label><br>
@@ -203,7 +202,7 @@
          async function filterAssets() {
           const searchByDate = document.getElementById('DateTrans');
           const searchByName = document.getElementById('Name');
-          const searchByCategory = document.getElementById('Category');
+          const searchByNameDigitalAsset = document.getElementById('NameDigitalAsset');
           const maxPrice = document.getElementById('price');
       
           const assets = Array.from(document.getElementById('assetTableBody').getElementsByTagName('tr'));
@@ -211,7 +210,7 @@
           assets.forEach((asset) => {
             const DateTrans = asset.children[4].innerText;
             const AssetName = asset.children[8].innerText;
-            const Category = asset.children[1].innerText;
+            const NameDigitalAsset = asset.children[2].innerText;
             const price = parseFloat(asset.children[7].innerText);
       
             asset.style.display = '';
@@ -224,7 +223,7 @@
               asset.style.display = 'none';
             }
       
-            if (searchByCategory.value && !Category.toLowerCase().includes(searchByCategory.value.toLowerCase())) {
+            if (searchByNameDigitalAsset.value && !NameDigitalAsset.toLowerCase().includes(searchByNameDigitalAsset.value.toLowerCase())) {
               asset.style.display = 'none';
             }
       
@@ -256,7 +255,7 @@
       function clearFilters() {  // Clear the sorts
         document.getElementById('DateTrans').value = '';
         document.getElementById('Name').value = '';
-        document.getElementById('Category').value = '';
+        document.getElementById('NameDigitalAsset').value = '';
         document.getElementById('price').value = '';
         filterAssets(); 
       }
@@ -265,7 +264,7 @@
       
         document.getElementById('DateTrans').addEventListener('input', filterAssets);
         document.getElementById('Name').addEventListener('input', filterAssets);
-        document.getElementById('Category').addEventListener('input', filterAssets);
+        document.getElementById('NameDigitalAsset').addEventListener('input', filterAssets);
         document.getElementById('price').addEventListener('input', filterAssets);
         document.getElementById('sortPriceButton').addEventListener('click', sortAssetsByPriceDescending);
         document.getElementById('clearFiltersButton').addEventListener('click', clearFilters);

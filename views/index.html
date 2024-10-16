@@ -120,7 +120,7 @@
       </div>
       <div class="price-slider" style="margin-right: 50px;">
         <label for="price">Max Price: <output for="price" id="price-value">250</output></label><br>
-        <input type="range" id="price" name="price" min="0" max="5000" value="200" onclick="filterAssets()">
+        <input type="range" id="price" name="price" min="0" max="5000" value="250" oninput="filterAssets()">
     </div>
     <div style="display: flex; align-items: center; margin-right: 30px;">
       <label for="Sort" style="margin-right: 10px;">Sort Price</label>
@@ -216,9 +216,10 @@
           <script> /* slide bar */
           const priceSlider = document.getElementById("price");
           const priceValue = document.getElementById("price-value");
-          
+          priceValue.textContent = priceSlider.value;
+
           priceSlider.addEventListener("input", function() {
-              priceValue.textContent = this.value ; 
+          priceValue.textContent = this.value;
           });
           </script>
           <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>

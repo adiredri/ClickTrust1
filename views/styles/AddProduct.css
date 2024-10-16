@@ -308,3 +308,44 @@ nav {
     height: 40px;
     box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
 }
+
+#question-mark {
+    width: 15px;
+    height: 15px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 250px;
+    background-color: #d3d3d3;
+    color: #000;
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 120%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.tooltip .tooltiptext ul {
+    padding-left: 15px;
+    margin: 0; 
+}
+.tooltip .tooltiptext ul li {
+    list-style-type: disc; 
+    margin-bottom: 1px; 
+}
