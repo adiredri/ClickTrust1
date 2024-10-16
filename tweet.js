@@ -1,4 +1,3 @@
-
 console.log("tweet file activated");
 require("dotenv").config({ path: __dirname + "/.env" });
 const { twitterClient } = require("./twitterClient.js");

@@ -197,18 +197,27 @@ router.post('/update-user', async (req, res) => {
   }
 });
 
+// --------------- Delete user from DB ---------------
 
-   // --------------- Delete user from DB ---------------
-   
 router.delete('/DeleteUser/:UserID', async (req, res) => {
   try {
-    const UserID = req.params.UserID;
-    await User.findByIdAndDelete(UserID);
-    res.status(200).send('User deleted successfully');
+    const userId = req.params.UserID;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    await User.findByIdAndDelete(userId);
     console.log('User deleted successfully');
+
+    const deletedAssets = await Asset.deleteMany({ Email: user.Email });
+    console.log(`Deleted ${deletedAssets.deletedCount} assets for user ${user.Email}`);
+
+    res.status(200).send(`User and their assets deleted successfully`);
   } catch (error) {
-    console.error('Error deleting user:', error);
-    res.status(500).send('Failed to delete user');
+    console.error('Error deleting user and their assets:', error);
+    res.status(500).send('Failed to delete user and their assets');
   }
 });
 

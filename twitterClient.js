@@ -8,11 +8,9 @@ const client = new TwitterApi({
 });
 
 const bearer = new TwitterApi(process.env.BEARER_TOKEN);
-
 const twitterClient = client.readWrite;
 const twitterBearer = bearer.readOnly;
 
 module.exports = { twitterClient, twitterBearer };
-
 
 console.log("tweeter client activated");
