@@ -124,16 +124,16 @@ router.get('/users', async (req, res) => {
 
 router.get('/user', async (req, res) => {
   try {
-      const Email = req.query.Email; // אימייל המשתמש שנשלח בבקשה
-      const user = await User.findOne({ Email: Email }); // מציאת המשתמש במסד הנתונים על פי האימייל
+      const Email = req.query.Email; 
+      const user = await User.findOne({ Email: Email }); 
       if (user) {
-          res.json(user); // שליחת המשתמש כתשובה בפורמט JSON
+          res.json(user); 
       } else {
-          res.status(404).send('User not found'); // אם המשתמש לא נמצא, שליחת תשובת שגיאה
+          res.status(404).send('User not found'); 
       }
   } catch (error) {
       console.error('Error fetching user data:', error);
-      res.status(500).send('Internal Server Error'); // שליחת תשובת שגיאה פנימית
+      res.status(500).send('Internal Server Error'); 
   }
 });
 // ------------- update user --------------
@@ -199,22 +199,39 @@ router.post('/update-user', async (req, res) => {
 
 // --------------- Delete user from DB ---------------
 
+const adminUserIDs = ['670fc628cb2a085da968d384' ,'6700ffb387ba434b1702447f' ,'670ea165d2ad8879fd5c4d05', '670ea6de6cdac1d9d49bbfb5'];
+
 router.delete('/DeleteUser/:UserID', async (req, res) => {
   try {
-    const userId = req.params.UserID;
-    const user = await User.findById(userId);
+    const userIdToDelete = req.params.UserID;
+    const currentUserId = req.body.currentUserId; 
 
-    if (!user) {
+    // שליפת המשתמש לפי UserID כדי לקבל את כתובת האימייל שלו
+    const userToDelete = await User.findById(userIdToDelete);
+
+    if (!userToDelete) {
       return res.status(404).send('User not found');
     }
 
-    await User.findByIdAndDelete(userId);
+    // בדיקה אם המשתמש שנמחק הוא מנהל
+    if (adminUserIDs.includes(userIdToDelete)) {
+      return res.status(403).send('You cannot delete another admin.');
+    }
+
+    // בדיקה אם המנהל מנסה למחוק את עצמו
+    if (userIdToDelete === currentUserId) {
+      return res.status(403).send('You cannot delete yourself from this page. Please delete your account from your profile page.');
+    }
+
+    // מחיקת המשתמש עצמו
+    await User.findByIdAndDelete(userIdToDelete);
     console.log('User deleted successfully');
 
-    const deletedAssets = await Asset.deleteMany({ Email: user.Email });
-    console.log(`Deleted ${deletedAssets.deletedCount} assets for user ${user.Email}`);
+    // מחיקת כל הנכסים הפעילים (Available: true) של המשתמש לפי כתובת האימייל
+    const deletedAssets = await Asset.deleteMany({ Email: userToDelete.Email, Available: true });
+    console.log(`Deleted ${deletedAssets.deletedCount} active assets for user ${userToDelete.Email}`);
 
-    res.status(200).send(`User and their assets deleted successfully`);
+    res.status(200).send(`User and their active assets deleted successfully`);
   } catch (error) {
     console.error('Error deleting user and their assets:', error);
     res.status(500).send('Failed to delete user and their assets');
@@ -235,7 +252,7 @@ router.post('/login', async (req, res) => {
     if (loguser) {
 
       // Retrieve user's role based on email and ID
-      if (loguser.id === '65f5c45d1ade009485b849df' || loguser.id === '6700ffb387ba434b1702447f' || loguser.id === '670ea165d2ad8879fd5c4d05' || loguser.id === '670ea6de6cdac1d9d49bbfb5') {
+      if (loguser.id === '670fc628cb2a085da968d384' || loguser.id === '6700ffb387ba434b1702447f' || loguser.id === '670ea165d2ad8879fd5c4d05' || loguser.id === '670ea6de6cdac1d9d49bbfb5') {
         res.redirect('/admin?Email=' + loguser.Email);
       } else {
         // Redirect to the customer index page and pass the first name as a query parameter in the URL

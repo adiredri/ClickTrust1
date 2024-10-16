@@ -112,29 +112,37 @@
   </script>
 
 <script>
-    async function DeleteUser(event, UserID) {
-      try {
-        event.preventDefault(); // Prevent default button action (e.g., form submission)
-        if (confirm('Are you sure you want to delete the user?')) {
-          const response = await fetch(`/DeleteUser/${UserID}`, {
-            method: 'DELETE'
-          });
-          
-          if (!response.ok) {
-            throw new Error('Failed to delete user.');
-          }
-          
-          alert('user deleted successfully');
-          location.reload(); // Refresh the page
-        } else {
-          alert('Delete canceled.');
-        }
-      } catch (error) {
-        console.error('Error deleting user:', error);
-      }
-    }
-    </script>
+async function DeleteUser(event, UserID) {
+    try {
+        event.preventDefault(); 
 
+        if (confirm('Are you sure you want to delete the user?')) {
+            const response = await fetch(`/DeleteUser/${UserID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const message = await response.text(); 
+            
+            if (response.status === 403 || response.status === 404) {
+                alert(message); 
+            } else if (response.status === 200) {
+                alert('Success: ' + message); 
+                location.reload(); 
+            } else {
+                alert('An unexpected error occurred.');
+            }
+        } else {
+            alert('Delete canceled.');
+        }
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('Failed to delete user due to an error.');
+    }
+}
+
+</script>
 
 <script>
 

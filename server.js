@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cron = require('node-cron');
 const Asset = require('./backend/models/asset');
 const mongoose = require('mongoose');
 require('./tweet.js');
@@ -45,17 +44,18 @@ app.listen(port, function () {
 //_______________________________________________________________________________________________
 // Schedule task to mark expired assets as unavailable
 
-cron.schedule('49 13 * * *', async () => {
-    console.log('Running task to mark expired assets as unavailable...');
+async function markExpiredAssets() {
+    console.log('Checking for expired assets on server startup...');
     const today = new Date();
     
     try {
         const result = await Asset.updateMany(
-            { Date: { $lt: today }, Available: true }, 
-            { $set: { Available: false } } 
+            { Date: { $lt: today }, Available: true },
+            { $set: { Available: false } }
         );
-        console.log(`Updated ${result.nModified} assets to unavailable.`);
+        console.log(`Updated ${result.modifiedCount} assets to unavailable.`);
     } catch (error) {
         console.error('Error updating expired assets:', error);
     }
-});
+}
+markExpiredAssets();
