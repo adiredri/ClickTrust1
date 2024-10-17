@@ -107,13 +107,13 @@ body {
     border-radius: 50%;
     overflow: hidden; 
     position: absolute; 
-    top: calc(53% + 5%); 
+    top: calc(57% + 5%); 
     text-align: center; 
   }
   
   #manager1, #manager2, #manager3, #manager4 {
     position: absolute;
-    bottom: 20%; 
+    bottom: 10%; 
     left: 50%;
     transform: translateX(-50%);
   }
@@ -152,7 +152,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     text-align: center; 
-    bottom: 6%;
+    bottom: 4%;
   }
   
   .title1 {
