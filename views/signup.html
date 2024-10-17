@@ -125,6 +125,24 @@ document.querySelector('form').addEventListener('submit', async function(event) 
         if (!response.ok) {
             alert(result.error || 'Error occurred');
         } else {
+            const webhookUrl = "https://hook.eu1.make.com/u9vzqwbe0qljid753ewqbfugs4r8obqi";
+
+            const payload = {
+                message: "Someone signed up to ClickTrust1",
+                timestamp: new Date().toISOString(),
+                fname1: firstName,
+                lname1: lastName,
+                email1: email
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => response.json())
             alert('User registered successfully!');
             window.location.href = '/welcome';
         }
