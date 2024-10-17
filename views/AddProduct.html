@@ -39,52 +39,57 @@
         <!-- start left form -->
 
         <div class="container left">
-            <form id="assetForm" method="POST" style="margin-top: -20%;">
-                <h2>Adding New Digital Asset</h2><br>
-                <select name="Category" required>
-                    <option value="" disabled selected style="color: rgba(255, 255, 255, 0.9);">Select Category</option>
-                    <option value="Shows">Shows</option>
-                    <option value="Sport">Sport</option>
-                    <option value="Games">Games</option>
-                    <option value="Music">Music</option>
-                    <option value="Subscriptions">Subscriptions</option>
-                    <option value="Softwares">Softwares</option>
-                    <option value="CryptoCoins">Crypto Coins</option>
-                    <option value="DigitalArts">Digital Arts</option>
-                    <option value="DigitalBooks">Digital Books</option>
-                    <option value="MoviesSeries">Movies / Series</option>
-                    <option value="Other">Other</option>
-                </select><br><br>
-                <input type="text" name="NameDigitalAsset" placeholder="Name Digital Asset" required><br><br>
-                <input type="text" name="Place" placeholder="Place" required><br><br>
-                <div style="display: flex;">
-                    <div style="flex: 1; margin-right: 10px;">
-                        <input type="date" name="Date" placeholder="Date" style="width: 90%;" required>
-                    </div>
-                    <div style="flex: 1; margin-left: 10px;">
-                        <input type="time" name="Time" placeholder="Time" style="width: 90%;" required>
-                    </div>
-                </div>
-                <br>
-                <div style="display: flex; align-items: flex-end;">
-                    <div style="flex: 1; margin-right: 10px;">
-                        <select name="Quantity" required style="width: 90%; height: 35px;">
-                            <option value="" disabled selected style="color: rgba(255, 255, 255, 0.9);">Quantity</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div style="flex: 1; margin-left: 10px;">
-                        <input type="number" name="Price" placeholder="Price ($)" style="width: 90%; height: 30px;" required>
-                    </div>
-                </div><br><br>
-                <input type="hidden" name="Email" id="Email" required>
-                <input type="hidden" name="Available" id="Available" value="true" required>
-                <div style="align-items: center;">
+          <form id="assetForm" method="POST" style="margin-top: -20%;">
+              <h2>Adding New Digital Asset</h2><br>
+              <select name="Category" required>
+                  <option value="" disabled selected style="color: rgba(255, 255, 255, 0.9);">Select Category</option>
+                  <option value="Shows">Shows</option>
+                  <option value="Sport">Sport</option>
+                  <option value="Games">Games</option>
+                  <option value="Music">Music</option>
+                  <option value="Subscriptions">Subscriptions</option>
+                  <option value="Softwares">Softwares</option>
+                  <option value="CryptoCoins">Crypto Coins</option>
+                  <option value="DigitalArts">Digital Arts</option>
+                  <option value="DigitalBooks">Digital Books</option>
+                  <option value="MoviesSeries">Movies / Series</option>
+                  <option value="Other">Other</option>
+              </select><br><br>
+              
+              <input type="text" name="NameDigitalAsset" placeholder="Name Digital Asset" required><br><br>
+              <input type="text" name="Place" placeholder="Place" required><br><br>
+              
+              <div style="display: flex;">
+                  <div style="flex: 1; margin-right: 10px;">
+                      <input type="date" name="Date" placeholder="Date" style="width: 90%;" required>
+                  </div>
+                  <div style="flex: 1; margin-left: 10px;">
+                      <input type="time" name="Time" placeholder="Time" style="width: 90%;" required>
+                  </div>
+              </div>
+              <br>
+              
+              <div style="display: flex; align-items: flex-end;">
+                  <div style="flex: 1; margin-right: 10px;">
+                      <select name="Quantity" required style="width: 90%; height: 35px;">
+                          <option value="" disabled selected style="color: rgba(255, 255, 255, 0.9);">Quantity</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                      </select>
+                  </div>
+                  <div style="flex: 1; margin-left: 10px;">
+                      <input type="number" name="Price" placeholder="Price ($)" style="width: 90%; height: 30px;" max="5000" required>
+                  </div>
+              </div><br><br>
+              
+              <input type="hidden" name="Email" id="Email" required>
+              <input type="hidden" name="Available" id="Available" value="true" required>
+              
+              <div style="align-items: center;">
                   <input type="submit" value="Add Asset" id="add-button" onclick="addAsset(event)">
                   <div class="tooltip">
                       <img src="images/questionMark.png" alt="Validation Info" id="question-mark">
@@ -97,11 +102,14 @@
                           </ul>
                       </span>
                   </div>
-              </div>            </form>
-            <div class="conformation" style="display: none;">
-                <p>Asset Added Successfully<br></p>
-            </div>
-        </div>
+              </div>
+          </form>
+      
+          <div class="conformation" style="display: none;">
+              <p>Asset Added Successfully<br></p>
+          </div>
+      </div>
+      
 
             <!-- end right forms -->
 
@@ -165,56 +173,65 @@
 </script>
 
 <script>
+  async function addAsset(event) {
+    event.preventDefault();
+  
+    try {
+      const formData = new FormData(document.getElementById('assetForm'));
+      const price = formData.get('Price');
+      const date = formData.get('Date');
+      const time = formData.get('Time');
+      const name = formData.get('NameDigitalAsset');
+      const place = formData.get('Place');
+      const category = formData.get('Category');
+      const quantity = formData.get('Quantity');
 
-async function addAsset(event) {
-  event.preventDefault();
-
-  try {
-    const formData = new FormData(document.getElementById('assetForm'));
-    const price = formData.get('Price');
-    const date = formData.get('Date');
-    const time = formData.get('Time');
-    const currentDate = new Date();
-    const datetimeString = `${date}T${time}`;
-    const selectedDate = new Date(datetimeString);
-
-    if (parseInt(price) > 5000) {
-      alert('Price cannot be greater than 5000.');
-      return;
+      const currentDate = new Date();
+      const datetimeString = `${date}T${time}`;
+      const selectedDate = new Date(datetimeString);
+  
+      if (!category || !name || !place || !price || !date || !time || !quantity) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+  
+      if (parseInt(price) > 5000) {
+        alert('Price cannot be greater than 5000.');
+        return;
+      }
+  
+      if (selectedDate < currentDate) {
+        alert('Date cannot be in the past.');
+        return;
+      }
+  
+      const data = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+  
+      data['Email'] = sessionStorage.getItem('Email');
+      const response = await fetch('/addAsset', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.json();
+        throw new Error(errorMessage.error || 'Failed to create asset.');
+      }
+  
+      alert('Asset created successfully');
+      location.reload();
+  
+    } catch (error) {
+      console.error('Error creating asset:', error);
+      alert(`Error: ${error.message}`);
     }
-
-    if (selectedDate < currentDate) {
-      alert('Date cannot be in the past.');
-      return;
-    }
-
-    const data = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
-
-    data['Email'] = sessionStorage.getItem('Email');
-    const response = await fetch('/addAsset', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-
-    if (!response.ok) {
-      const errorMessage = await response.json();
-      throw new Error(errorMessage.error || 'Failed to create asset.');
-    }
-
-    alert('Asset created successfully');
-    location.reload();
-
-  } catch (error) {
-    console.error('Error creating asset:', error);
-    alert(`Error: ${error.message}`);
   }
-}
-
-</script>
+  </script>
+  
 </html>
