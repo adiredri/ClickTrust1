@@ -28,7 +28,7 @@
             <input type="text" name="Name" placeholder="Name" style="width: 55%" required><br><br>
             <input type="text" name="Email" placeholder="Email" style="width: 55%" required><br><br>
             <input type="number" name="Phone" placeholder="Phone" style="width: 55%" required><br><br><br>
-            <textarea id="message" name="Message" placeholder="Message" style="width: 95%" required></textarea>
+            <textarea id="Message" name="Massege" placeholder="Message" style="width: 95%" required></textarea>
             <input type="submit" value="Submit" id="signup-button" style="margin-top: 15px;" onclick="addContact(event)">
         </form>
         <p>Address: Elie Wiesel St 2, Rishon LeTsiyon <br><br>
@@ -65,14 +65,14 @@
       try {
         event.preventDefault(); // Prevent default button action (e.g., form submission)
     
-        if (confirm('Are you sure you want to send this massege?')) {
-          await createContact(); // Create massege
+        if (confirm('Are you sure you want to send this message?')) {
+          await createContact(); // Create message
         } else {
           // User canceled the action
-          alert('Send Massege canceled.');
+          alert('Send message canceled.');
         }
       } catch (error) {
-        console.error('Error adding massege:', error);
+        console.error('Error adding message:', error);
       }
     }
 
@@ -98,12 +98,12 @@
           throw new Error(`Failed to create contact: ${errorMessage}`);
         }
     
-        console.log('Massege send successfully');
-        alert('Massege send successfully');
+        console.log('Message send successfully');
+        alert('Message send successfully');
         location.reload(); 
     
       } catch (error) {
-        console.error('Error creating massege:', error);
+        console.error('Error creating message:', error);
         console.log(error);
       }
     }
