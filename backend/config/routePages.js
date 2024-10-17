@@ -537,7 +537,7 @@ router.get('/user-trades', async (req, res) => {
 
 //  ----------------------------------------------- CONTACTS -------------------------------------------
 
-// ------------- Add new massege --------------
+// ------------- Add new message --------------
 
 router.post('/addContact', async (req, res) => {
   const contact = new Contact({
@@ -560,7 +560,7 @@ router.post('/addContact', async (req, res) => {
   }
 });
 
-// ------------- get all masseges --------------
+// ------------- get all messages --------------
 
 router.get('/contacts', async (req, res) => {
   try {
@@ -572,17 +572,17 @@ router.get('/contacts', async (req, res) => {
   }
 });
 
-   // --------------- Delete massege from DB ---------------
+   // --------------- Delete message from DB ---------------
    
 router.delete('/DeleteContact/:ContactID', async (req, res) => {
   try {
     const ContactID = req.params.ContactID;
     await Contact.findByIdAndDelete(ContactID);
-    res.status(200).send('Massege deleted successfully');
-    console.log('Massege deleted successfully');
+    res.status(200).send('Message deleted successfully');
+    console.log('Message deleted successfully');
   } catch (error) {
-    console.error('Error deleting Massege:', error);
-    res.status(500).send('Failed to delete Massege');
+    console.error('Error deleting Message:', error);
+    res.status(500).send('Failed to delete Message');
   }
 });
 

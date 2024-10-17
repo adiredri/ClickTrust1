@@ -136,11 +136,11 @@ nav {
   }
 
   .table-container {
-    width: 95% !important; /* רוחב של 95% */
-    max-width: none !important; /* מבטל מגבלות רוחב מקסימליות */
-    margin: 0 auto; /* ממרכז את הקונטיינר */
-    padding: 0; /* מוודא שאין padding */
-    position: relative; /* שומר על מיקום יחסי */
+    width: 95% !important; 
+    max-width: none !important; 
+    margin: 0 auto;
+    padding: 0;
+    position: relative; 
   }
 
 .text-box {
@@ -153,8 +153,8 @@ nav {
   margin-top: 170px;
   margin-bottom:160px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
-  backdrop-filter: blur(40px);  /*blur effect*/
-  -webkit-backdrop-filter: blur(40px); /*blur effect*/
+  backdrop-filter: blur(40px); 
+  -webkit-backdrop-filter: blur(40px);
   border-radius: 20px;
   border:1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
@@ -181,7 +181,7 @@ nav {
   padding: 0;
   margin: 15px;
 }
-@media (min-height: 1080px) { /*boxes responsivnes*/
+@media (min-height: 1080px) { 
   .text-box{
     max-width: 900px;
   }
@@ -193,7 +193,7 @@ nav {
   }
 
 }
-@media  (max-width: 750px) { /*boxes responsivnes*/
+@media  (max-width: 750px) { 
   .text-box{
     margin-top: 200px;
     margin-bottom: 180px;

@@ -230,7 +230,7 @@ h2 {
      box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
  }
 
- #message {
+ #Message {
     color: rgba(255, 255, 255, 0.9);
     font-size: 18px;
     height: 170px;
@@ -251,7 +251,7 @@ h2 {
     margin: 0 auto;
     font-family: 'Poppins', sans-serif;
 }
-#message::placeholder {
+#Message::placeholder {
     color: rgba(255, 255, 255, 0.9);
     font-size: 20px;
     text-align: center;
